@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>News & Jobs Portal</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>News & Job Portal</h1>
+    <nav>
+        <a href="/">Home</a> |
+        <a href="/jobs">Jobs</a> |
+        <a href="/current-affairs">Current Affairs</a> |
+        <a href="/international-news">International News</a>
+    </nav>
+    <hr>
+    {% block content %}{% endblock %}
+</body>
+</html>
