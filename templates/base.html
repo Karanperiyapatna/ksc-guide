@@ -5,17 +5,37 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <h1>News & Job Portal</h1>
-    <nav>
-        <a href="/">Home</a> 
-        <a href="/jobs">Karnataka Jobs</a> |
-        <a href="/KPSC">KPSC</a> |
-        <a href="/bank-jobs">Bank Jobs</a> |
-        <a href="/central-govt">Central Govt</a> |
-        <a href="/current-affairs">Current Affairs</a> 
-        <a href="/results">Results</a>
-    </nav>
+
+    <!-- Header Section -->
+    <header class="main-header">
+        <div class="logo-title">
+            <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo" class="logo">
+            <h1>News & Job Portal</h1>
+        </div>
+
+        <nav class="nav-menu">
+            <a href="/">Home</a>
+            <a href="/jobs">Karnataka Jobs</a>
+            <a href="/KPSC">KPSC</a>
+            <a href="/bank-jobs">Bank Jobs</a>
+            <a href="/central-govt">Central Govt</a>
+            <a href="/current-affairs">Current Affairs</a>
+            <a href="/results">Results</a>
+        </nav>
+    </header>
+
     <hr>
-    {% block content %}{% endblock %}
+
+    <!-- Body Section -->
+    <main class="content">
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Button Section -->
+    <section class="button-section">
+        <button>Apply Now</button>
+        <button>Latest Updates</button>
+    </section>
+
 </body>
 </html>

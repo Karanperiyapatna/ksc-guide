@@ -1,0 +1,68 @@
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Header Styling */
+.main-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #1e3a8a;
+    padding: 15px 40px;
+    color: white;
+}
+
+/* Logo + Title */
+.logo-title {
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    width: 50px;
+    height: 50px;
+    margin-right: 15px;
+}
+
+/* Navigation Menu */
+.nav-menu a {
+    color: white;
+    text-decoration: none;
+    margin-left: 20px;
+    font-weight: 500;
+}
+
+.nav-menu a:hover {
+    text-decoration: underline;
+    color: #facc15;
+}
+
+/* Body Content */
+.content {
+    padding: 40px;
+    min-height: 400px;
+}
+
+/* Button Section */
+.button-section {
+    text-align: center;
+    padding: 20px;
+    background-color: #f3f4f6;
+}
+
+.button-section button {
+    padding: 10px 20px;
+    margin: 10px;
+    border: none;
+    background-color: #1e3a8a;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.button-section button:hover {
+    background-color: #2563eb;
+}
