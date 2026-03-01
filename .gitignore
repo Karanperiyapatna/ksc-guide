@@ -10,3 +10,15 @@ logs/
 venv
 
 config.py
+
+.cache
+.ssh
+.bash_logout
+.bashrc
+.gitconfig
+.gitignore
+.profile
+.sudo_as_admin_successful
+
+
+
