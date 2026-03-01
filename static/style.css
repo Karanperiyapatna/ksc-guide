@@ -28,8 +28,9 @@
 }
 
 /* Navigation Menu */
+/* Navigation Menu - Related Data Menu List like KSPC Home etc*/
 .nav-menu a {
-    color: white;
+    color: rgb(20, 20, 20);
     text-decoration: none;
     margin-left: 20px;
     font-weight: 500;
@@ -37,7 +38,7 @@
 
 .nav-menu a:hover {
     text-decoration: underline;
-    color: #facc15;
+    color: #b6ecf6;
 }
 
 /* Body Content */
