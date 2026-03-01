@@ -57,12 +57,12 @@
     padding: 10px 20px;
     margin: 10px;
     border: none;
-    background-color: #1e3a8a;
+    background-color: #b5e7bf;
     color: white;
     cursor: pointer;
     border-radius: 5px;
 }
 
 .button-section button:hover {
-    background-color: #2563eb;
+    background-color: #25eb49;
 }
