@@ -34,5 +34,9 @@ def current_affairs_page():
 def international_news_page():
     return render_template('international_news.html', news=international_news)
 
+@app.route('/updation')
+def updation_page():
+    return render_template('updation.html')
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
