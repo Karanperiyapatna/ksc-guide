@@ -1,41 +1,74 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>KSC Guide Jobs Portal</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+	<title>KSC Guide Jobs Portal</title>
+	<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
 
-    <!-- Header Section -->
-    <header class="main-header">
-        <div class="logo-title">
-            <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo" class="logo">
-            <h1>News & Job Portal</h1>
-        </div>
+	<!-- Header Section -->
+	<header class="main-header">
+		<div class="logo-title">
+			<img src="{{ url_for('static', filename='logo.png') }}" alt="Logo" class="logo">
+			<h1>KSC Guide Job Portal</h1>
+		</div>
 
-        <nav class="nav-menu">
-            <a href="/">Home</a>
-            <a href="/jobs">Karnataka Jobs</a>
-            <a href="/KPSC">KPSC</a>
-            <a href="/bank-jobs">Bank Jobs</a>
-            <a href="/central-govt">Central Govt</a>
-            <a href="/current-affairs">Current Affairs</a>
-            <a href="/results">Results</a>
-        </nav>
-    </header>
+		<nav class="nav-menu">
+			<a href="/">Home</a>
+			<a href="/jobs">Karnataka Jobs</a>
+			<a href="/KPSC">KPSC</a>
+			<a href="/bank-jobs">Bank Jobs</a>
+			<a href="/central-govt">Central Govt</a>
+			<a href="/current-affairs">Current Affairs</a>
+			<a href="/results">Results</a>
+		</nav>
+	</header>
 
-    <hr>
+	<hr>
 
-    <!-- Body Section -->
-    <main class="content">
-        {% block content %}{% endblock %}
-    </main>
+	<!-- Body Section -->
+	 <!-- ----------------------------------- Body Section -------------------------------- -->
+	<main class="content">
+		{% block content %}{% endblock %}
+	</main>
 
-    <!-- Button Section -->
-    <section class="button-section">
-        <button>Apply Now</button>
-        <button>Latest Updates</button>
-    </section>
+	<!-- ----------------------------------- Footer Section -------------------------------- -->
+	<!-- 3 Column Footer Section -->
+	<section class="footer-section">
+		
+		<!-- Column 1: Logo + Contact -->
+		<div class="footer-column">
+			<img src="logo.png" alt="Company Logo" class="footer-logo">
+			<p><strong>Company Name</strong></p>
+			<p>123 Main Street, City, Country</p>
+			<p>Phone: +1 234 567 890</p>
+			<p>Email: info@example.com</p>
+		</div>
+
+		<!-- Column 2: Navigation Links -->
+		<div class="footer-column">
+			<h3>Quick Links</h3>
+			<ul>
+				<li><a href="#">Home</a></li>
+				<li><a href="#">About Us</a></li>
+				<li><a href="#">Services</a></li>
+				<li><a href="#">Admissions</a></li>
+				<li><a href="#">Contact</a></li>
+			</ul>
+		</div>
+
+		<!-- Column 3: Social Links -->
+		<div class="footer-column">
+			<h3>Follow Us</h3>
+			<div class="social-icons">
+				<a href="#"><i class="fab fa-facebook-f"></i> Facebook</a><br>
+				<a href="#"><i class="fab fa-twitter"></i> Twitter</a><br>
+				<a href="#"><i class="fab fa-instagram"></i> Instagram</a><br>
+				<a href="#"><i class="fab fa-linkedin-in"></i> LinkedIn</a>
+			</div>
+		</div>
+
+	</section>
 
 </body>
 </html>
