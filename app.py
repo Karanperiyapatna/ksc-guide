@@ -34,10 +34,6 @@ def current_affairs_page():
 def international_news_page():
     return render_template('international_news.html', news=international_news)
 
-@app.route("/")
-def home():
-    return render_template("index.html")
-
 @app.route("/updation")
 def updation():
     return render_template("updation.html")
