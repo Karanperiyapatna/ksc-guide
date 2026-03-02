@@ -3,4 +3,57 @@
 <h2>Welcome to News & Job Portal</h2>
 
 <p>Select a category from the menu.</p>
+
+
+<div class="dashboard-container">
+
+    <!-- Column 1 -->
+    <div class="card">
+        <div class="card-header green-header">
+            📘 Daily Current Affairs
+        </div>
+        <div class="card-body">
+            {% for item in current_affairs %}
+            <a href="{{ item.url }}" class="list-item">
+                {{ item.title }}
+                <span class="arrow">›</span>
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Column 2 -->
+    <div class="card">
+        <div class="card-header purple-header">
+            📝 Important Editorials
+        </div>
+        <div class="card-body">
+            {% for item in editorials %}
+            <a href="{{ item.url }}" class="list-item">
+                {{ item.title }}
+                <span class="arrow">›</span>
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Column 3 -->
+    <div class="card">
+        <div class="card-header red-header">
+            🔗 More Links
+        </div>
+        <div class="card-body">
+            {% for item in more_links %}
+            <a href="{{ item.url }}" class="list-item">
+                {{ item.title }}
+                <span class="arrow">›</span>
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+
+</div>
+
+
+
 {% endblock %}
