@@ -14,148 +14,153 @@
  -->
 
  <!-- ------------------------------------- Updated code on 2/3/2026 For 3 column page -->
-<style>
-/* ===== Container Layout ===== */
-.news-container {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 25px;
-    margin-top: 30px;
-}
-
-/* ===== Card Styling ===== */
-.card {
-    background: #f4f6f9;
-    border-radius: 12px;
-    padding: 0;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-    overflow: hidden;
-}
-
-/* ===== Headers ===== */
-.card-header {
-    padding: 15px 20px;
-    font-size: 18px;
-    font-weight: 600;
-    color: #fff;
-    display: flex;
-    align-items: center;
-}
-
-.green-header { background: linear-gradient(90deg,#1abc9c,#16a085); }
-.purple-header { background: linear-gradient(90deg,#8e44ad,#6c5ce7); }
-.red-header { background: linear-gradient(90deg,#ff7675,#e74c3c); }
-
-/* ===== Scroll Section ===== */
-.card-body {
-    max-height: 350px;
-    overflow-y: auto;
-    padding: 10px 0;
-}
-
-/* ===== Links ===== */
-.link-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 12px 20px;
-    text-decoration: none;
-    color: #34495e;
-    border-left: 4px solid #ff6b6b;
-    transition: all 0.3s ease;
-}
-
-.link-item:hover {
-    background: #e9ecef;
-    padding-left: 25px;
-    color: #000;
-}
-
-.arrow {
-    color: #999;
-}
-
-/* ===== Scrollbar Styling ===== */
-.card-body::-webkit-scrollbar {
-    width: 6px;
-}
-.card-body::-webkit-scrollbar-thumb {
-    background: #ccc;
-    border-radius: 10px;
-}
-
-/* ===== Responsive ===== */
-@media(max-width: 992px) {
-    .news-container {
-        grid-template-columns: 1fr 1fr;
-    }
-}
-
-@media(max-width: 600px) {
-    .news-container {
-        grid-template-columns: 1fr;
-    }
-}
-</style>
 
 {% extends 'base.html' %}
 {% block content %}
 
-<h2>Welcome to News & Job Portal</h2>
-<p>Select a category from the menu.</p>
+<style>
+/* ===== Main Container ===== */
+.dashboard-container {
+	max-width: 1200px;
+	margin: 40px auto;
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 30px;
+}
 
-<div class="news-container">
+/* ===== Card Style ===== */
+.card {
+	background: #f4f6f9;
+	border-radius: 12px;
+	box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+	overflow: hidden;
+}
 
-    <!-- Column 1 -->
-    <div class="card">
-        <div class="card-header green-header">
-            📰 Daily Current Affairs
-        </div>
-        <div class="card-body">
-            {% for item in current_affairs %}
-            <a href="{{ item.url }}" class="link-item">
-                {{ item.title }}
-                <span class="arrow">›</span>
-            </a>
-            {% endfor %}
-        </div>
-    </div>
+/* ===== Header Styles ===== */
+.card-header {
+	padding: 15px 20px;
+	font-size: 18px;
+	font-weight: 600;
+	color: #fff;
+}
 
-    <!-- Column 2 -->
-    <div class="card">
-        <div class="card-header purple-header">
-            📘 Important Editorials
-        </div>
-        <div class="card-body">
-            {% for item in editorials %}
-            <a href="{{ item.url }}" class="link-item">
-                {{ item.title }}
-                <span class="arrow">›</span>
-            </a>
-            {% endfor %}
-        </div>
-    </div>
+/* Header Colors */
+.green-header {
+	background: linear-gradient(90deg, #16a085, #1abc9c);
+}
 
-    <!-- Column 3 -->
-    <div class="card">
-        <div class="card-header red-header">
-            🔗 More Links
-        </div>
-        <div class="card-body">
-            {% for item in more_links %}
-            <a href="{{ item.url }}" class="link-item">
-                {{ item.title }}
-                <span class="arrow">›</span>
-            </a>
-            {% endfor %}
-        </div>
-    </div>
+.purple-header {
+	background: linear-gradient(90deg, #6a5acd, #836fff);
+}
+
+.red-header {
+	background: linear-gradient(90deg, #e74c3c, #ff6b6b);
+}
+
+/* ===== Scrollable List ===== */
+.card-body {
+	max-height: 350px;
+	overflow-y: auto;
+	padding: 10px 0;
+}
+
+/* Scrollbar Styling */
+.card-body::-webkit-scrollbar {
+	width: 6px;
+}
+.card-body::-webkit-scrollbar-thumb {
+	background: #ccc;
+	border-radius: 10px;
+}
+
+/* ===== Links ===== */
+.list-item {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 12px 20px;
+	text-decoration: none;
+	color: #333;
+	border-bottom: 1px solid #ddd;
+	transition: 0.3s;
+}
+
+.list-item:hover {
+	background: #e9eef5;
+	color: #000;
+}
+
+.arrow {
+	font-weight: bold;
+	color: #888;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 992px) {
+	.dashboard-container {
+		grid-template-columns: repeat(2, 1fr);
+	}
+}
+
+@media (max-width: 600px) {
+	.dashboard-container {
+		grid-template-columns: 1fr;
+	}
+}
+</style>
+
+
+<h2 style="text-align:center;">Welcome to News & Job Portal</h2>
+<p style="text-align:center;">Select a category from the menu.</p>
+
+<div class="dashboard-container">
+
+	<!-- Column 1 -->
+	<div class="card">
+		<div class="card-header green-header">
+			📘 Daily Current Affairs
+		</div>
+		<div class="card-body">
+			{% for item in current_affairs %}
+			<a href="{{ item.url }}" class="list-item">
+				{{ item.title }}
+				<span class="arrow">›</span>
+			</a>
+			{% endfor %}
+		</div>
+	</div>
+
+	<!-- Column 2 -->
+	<div class="card">
+		<div class="card-header purple-header">
+			📝 Important Editorials
+		</div>
+		<div class="card-body">
+			{% for item in editorials %}
+			<a href="{{ item.url }}" class="list-item">
+				{{ item.title }}
+				<span class="arrow">›</span>
+			</a>
+			{% endfor %}
+		</div>
+	</div>
+
+	<!-- Column 3 -->
+	<div class="card">
+		<div class="card-header red-header">
+			🔗 More Links
+		</div>
+		<div class="card-body">
+			{% for item in more_links %}
+			<a href="{{ item.url }}" class="list-item">
+				{{ item.title }}
+				<span class="arrow">›</span>
+			</a>
+			{% endfor %}
+		</div>
+	</div>
 
 </div>
 
 {% endblock %}
 
-
-{% extends 'base.html' %}
-
-{% block content %}
