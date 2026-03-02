@@ -95,8 +95,8 @@
 <h2>Welcome to News & Job Portal</h2>
 <p>Select a category from the menu. Added new features for better navigation and user experience.</p>
 
+<!-- ------------------------------------------------ Added 3 Column  -->
 <div class="dashboard-container">
-
     <!-- Column 1 -->
     <div class="card">
         <div class="card-header green-header">
@@ -114,17 +114,18 @@
 
     <!-- Column 2 -->
     <div class="card">
-        <div class="card-header purple-header">
-            📝 Important Editorials
-        </div>
-        <div class="card-body">
-            {% for item in editorials %}
-            <a href="{{ item.url }}" class="list-item">
-                {{ item.title }}
-                <span class="arrow">›</span>
-            </a>
-            {% endfor %}
-        </div>
+		<div class="card-header purple-header">
+			📝 Important Editorials
+		</div>
+
+		<div class="card-body editorial-body">
+			{% for item in editorials %}
+			<a href="{{ item.url }}" class="editorial-item">
+				<span class="editorial-title">{{ item.title }}</span>
+				<span class="arrow">›</span>
+			</a>
+			{% endfor %}
+		</div>
     </div>
 
     <!-- Column 3 -->
