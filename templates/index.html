@@ -98,7 +98,7 @@
     gap: 10px;                /* Space between items */
 }
 
-/* ----------------------------- Started 3rd column  */
+/* ----------------------------- Started 3rd Row Wise  */
 .editorial-item {
     display: block;
     padding: 10px 15px;
@@ -113,11 +113,62 @@
     background-color: #e0e0e0;
 }
 
+.editorial-body {
+    background-color: #ffffff;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid #ddd;
+}
+
+.update-row {
+    padding: 12px 16px;
+    border-bottom: 1px solid #eee;
+    font-size: 15px;
+}
+
+.update-row:last-child {
+    border-bottom: none;  /* Remove last line */
+}
+
+.update-row:hover {
+    background-color: #f5f5f5;
+    cursor: pointer;
+}
+
 /* ------------------------------- Ended 3rd Column */
 </style>
 
 <h2>Welcome to News & Job Portal</h2>
 <p>Select a category from the menu. Added new features for better navigation and user experience.</p>
+
+
+<!-- ------------------------------------------------ Added Row wise Updation -->
+
+<div class="card-header purple-header">
+    📝 Important Updation
+</div>
+
+<div class="card-body editorial-body">
+
+    <div class="update-row">
+        Updation about 28th February 2026 which is updated on 23rd
+    </div>
+
+    <div class="update-row">
+        KPSC Updation posted
+    </div>
+
+    <div class="update-row">
+        New Notification Released
+    </div>
+
+</div>
+
+<!-- ----------------------------------------------------- Ended Row Wise -->
+
+
+
+
 
 <!-- ------------------------------------------------ Added 3 Column  -->
 <div class="dashboard-container">
@@ -126,14 +177,11 @@
         <div class="card-header green-header">
             📘 Daily Current Affairs
         </div>
-        <div class="card-body">
-            {% for item in current_affairs %}
-            <a href="{{ item.url }}" class="list-item">
-                {{ item.title }}
-                <span class="arrow">›</span>
-            </a>
-            {% endfor %}
-        </div>
+		<div class="card-body editorial-body">
+			<a href="#" class="editorial-item">1 February 2026</a>
+			<a href="#" class="editorial-item">2 February 2026</a>
+			<a href="#" class="editorial-item">3 February 2026</a>
+		</div>
     </div>
 
     <!-- Column 2 -->
@@ -143,9 +191,9 @@
 		</div>
 
 		<div class="card-body editorial-body">
-			<a href="#" class="editorial-item">abc</a>
-			<a href="#" class="editorial-item">xyz</a>
-			<a href="#" class="editorial-item">abc abc</a>
+			<a href="#" class="editorial-item">India-Isreal Ties</a>
+			<a href="#" class="editorial-item">Recasting India's</a>
+			<a href="#" class="editorial-item">AI and Transforming</a>
 		</div>
     </div>
 
@@ -154,18 +202,13 @@
         <div class="card-header red-header">
             🔗 More Links
         </div>
-        <div class="card-body">
-            {% for item in more_links %}
-            <a href="{{ item.url }}" class="list-item">
-                {{ item.title }}
-                <span class="arrow">›</span>
-            </a>
-            {% endfor %}
-        </div>
+		<div class="card-body editorial-body">
+			<a href="#" class="editorial-item">KPSC Questions Paper</a>
+			<a href="#" class="editorial-item">KSP Updates</a>
+			<a href="#" class="editorial-item">SDA FDA Updates</a>
+		</div>
     </div>
-
 </div>
-
 
 
 {% endblock %}
