@@ -77,8 +77,8 @@
 .footer-section {
     display: flex;
     justify-content: space-between;
-    background-color: #222;
-    color: #fff;
+    background-color: #fff;
+    color: #222;
     padding: 40px 60px;
     flex-wrap: wrap;
 }
@@ -120,4 +120,11 @@
     margin-right: 8px;
 }
 
-/*  2nd Version Footer Section -----------------------------------------------  */
+.social-icons a {
+	color: #fff;
+	text-decoration: none;
+	margin-right: 15px;
+}	
+.social-icons a:hover {
+	color: #f4b400;
+}
