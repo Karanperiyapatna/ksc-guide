@@ -33,67 +33,45 @@
 		{% block content %}{% endblock %}
 	</main>
 
-	<!-- ---------------------- Updated Footer Section -- CSS Grid (not Flexbox) -->
-	 <!-- ✔ Clean modern UI
-		✔ Mobile optimized
-		✔ Hover effects
-		✔ Professional spacing
-		✔ Social icons with circle background
-		✔ Responsive layout (3 → 1 column on mobile)
- 	-->
-	<!-- Modern Footer Section -->
-	<footer class="footer">
-		<div class="footer-container">
-
-			<!-- Column 1: Logo + Contact -->
-			<div class="footer-col">
-				<img src="logo.png" alt="Logo" class="footer-logo">
-				<p class="footer-about">
-					We provide quality education and services with excellence and dedication.
-				</p>
-				<div class="contact-info">
-					<p>📍 123 Main Street, City, Country</p>
-					<p>📞 +1 234 567 890</p>
-					<p>✉ info@example.com</p>
-				</div>
-			</div>
-
-			<!-- Column 2: Quick Links -->
-			<div class="footer-col">
-				<h3>Quick Links</h3>
-				<ul class="footer-links">
-					<li><a href="#">Home</a></li>
-					<li><a href="#">About Us</a></li>
-					<li><a href="#">Admissions</a></li>
-					<li><a href="#">Services</a></li>
-					<li><a href="#">Contact</a></li>
-				</ul>
-			</div>
-
-			<!-- Column 3: Social Links -->
-			<div class="footer-col">
-				<h3>Follow Us</h3>
-				<div class="social-links">
-					<a href="#"><i class="fab fa-facebook-f"></i></a>
-					<a href="#"><i class="fab fa-instagram"></i></a>
-					<a href="#"><i class="fab fa-twitter"></i></a>
-					<a href="#"><i class="fab fa-linkedin-in"></i></a>
-				</div>
-			</div>
-
-		</div>
-
-		<!-- Bottom Bar -->
-		<div class="footer-bottom">
-			<p>© 2026 Your Company. All Rights Reserved.</p>
-		</div>
-	</footer>
-
 	<!-- ----------------------------------- 2nd Version Footer Section -------------------------------- -->
 	<!-- 3 Column Footer Section -->
-	<!-- 
 	<section class="footer-section">
+		
+		<!-- Column 1: Logo + Contact -->
+		<div class="footer-column">
+			<img src="logo.png" alt="Company Logo" class="footer-logo">
+			<p><strong>Company Name</strong></p>
+			<p>123 Main Street, City, Country</p>
+			<p>Phone: +1 234 567 890</p>
+			<p>Email: info@example.com</p>
+		</div>
 
+		<!-- Column 2: Navigation Links -->
+		<div class="footer-column">
+			<h3>Quick Links</h3>
+			<ul>
+				<li><a href="#">Home</a></li>
+				<li><a href="#">About Us</a></li>
+				<li><a href="#">Services</a></li>
+				<li><a href="#">Admissions</a></li>
+				<li><a href="#">Contact</a></li>
+			</ul>
+		</div>
+
+		<!-- Column 3: Social Links -->
+		<div class="footer-column">
+			<h3>Follow Us</h3>
+			<div class="social-icons">
+				<a href="#"><i class="fab fa-facebook-f"></i> Facebook</a><br>
+				<a href="#"><i class="fab fa-twitter"></i> Twitter</a><br>
+				<a href="#"><i class="fab fa-instagram"></i> Instagram</a><br>
+				<a href="#"><i class="fab fa-linkedin-in"></i> LinkedIn</a>
+			</div>
+		</div>
+
+	</section>
+	
+	<!-- Bottom Bar -->
 
 </body>
 </html>
