@@ -1,0 +1,19 @@
+
+
+
+# -------------------- on 02-03-2026
+
+If page is not redirecting getting 404 Error, add page route in app.py
+
+<a href="updation.html" class="update-row">
+    Updation about 28th February 2026 which is updated on 23rd
+</a>
+
+@app.route("/")
+def home():
+    return render_template("index.html")
+
+@app.route("/updation")
+def updation():
+    return render_template("updation.html")
+
