@@ -108,12 +108,12 @@
 }
 
 .footer-column a {
-    color: #fff;
+    color: #222;
     text-decoration: none;
 }
 
 .footer-column a:hover {
-    color: #f4b400;
+    color: #b77a5b;
 }
 
 .social-icons i {
