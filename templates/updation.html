@@ -4,6 +4,67 @@
 
 {% block content %}
 
+<style>
+		body {
+			font-family: Arial, sans-serif;
+			background-color: #f4f6f9;
+			margin: 0;
+			padding: 20px;
+		}
+
+		.updates-container {
+			max-width: 900px;
+			margin: auto;
+		}
+
+		.update-card {
+			background: #ffffff;
+			padding: 20px;
+			margin-bottom: 20px;
+			border-radius: 8px;
+			box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+			transition: transform 0.2s ease, box-shadow 0.2s ease;
+		}
+
+		.update-card:hover {
+			transform: translateY(-3px);
+			box-shadow: 0 6px 14px rgba(0, 0, 0, 0.12);
+		}
+
+		.update-card h2 {
+			margin-top: 0;
+			color: #2c3e50;
+		}
+
+		.update-card p {
+			color: #555;
+			line-height: 1.6;
+		}
+
+		.update-card h3 {
+			margin-top: 15px;
+			color: #34495e;
+		}
+
+		.update-card ul {
+			padding-left: 20px;
+		}
+
+		.update-card ul li {
+			margin-bottom: 8px;
+		}
+
+		.update-card a {
+			text-decoration: none;
+			color: #007bff;
+		}
+
+		.update-card a:hover {
+			text-decoration: underline;
+		}
+</style>
+
+
 <h2>Updation about 28th February 2026</h2>
 
 <p>
@@ -14,8 +75,8 @@ announcements, and instructions.
 
 <h3>Related Links</h3>
 <ul>
-    <li><a href="kpsc.html">KPSC Update Details</a></li>
-    <li><a href="notification.html">Latest Notification</a></li>
+	<li><a href="kpsc.html">KPSC Update Details</a></li>
+	<li><a href="notification.html">Latest Notification</a></li>
 </ul>
 
 {% endblock %}
