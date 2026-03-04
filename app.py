@@ -38,5 +38,9 @@ def international_news_page():
 def updation_page():
     return render_template('updation.html')
 
+@app.route('/aboutus')
+def aboutus_page():
+    return render_template('aboutus.html')
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
