@@ -269,10 +269,16 @@
 <!-- ------------------------------------------------ Added Row wise Updation -->
 
 <div class="card-header purple-header">
-	📝 Recent Notification
+ 📝 Recent Notification
 </div>
 
 <div id="recentNotifications"></div>
+
+<div class="card-body editorial-body">
+  <div class="ku-job-wrapper">
+    <div id="ku-job-container"></div>
+  </div>
+</div>
 
 <script>
 
@@ -282,15 +288,49 @@ fetch("/api/jobs")
 .then(res => res.json())
 .then(data => {
 
-let container = document.getElementById("recentNotifications");
-container.innerHTML = "";
+let recentContainer = document.getElementById("recentNotifications");
+let jobContainer = document.getElementById("ku-job-container");
 
-data.forEach(job => {
+recentContainer.innerHTML = "";
+jobContainer.innerHTML = "";
 
-let p = document.createElement("p");
-p.textContent = job.location;
+// ---------- FIRST JOB (Recent Notification) ----------
+if(data.length > 0){
 
-container.appendChild(p);
+let job = data[0];
+
+let table = `
+<table border="1" width="100%">
+<tr><th>Title</th><td>${job.title}</td></tr>
+<tr><th>Organization</th><td>${job.organization}</td></tr>
+<tr><th>Posts</th><td>${job.posts}</td></tr>
+<tr><th>Location</th><td>${job.location}</td></tr>
+<tr><th>Post Name</th><td>${job.post_name}</td></tr>
+<tr><th>Salary</th><td>${job.salary}</td></tr>
+</table>
+`;
+
+recentContainer.innerHTML = table;
+
+}
+
+// ---------- NEXT 2 JOBS ----------
+data.slice(1,3).forEach(job => {
+
+let block = document.createElement("div");
+
+block.innerHTML = `
+<table border="1" width="100%" style="margin-top:15px;">
+<tr><th>Title</th><td>${job.title}</td></tr>
+<tr><th>Organization</th><td>${job.organization}</td></tr>
+<tr><th>Posts</th><td>${job.posts}</td></tr>
+<tr><th>Location</th><td>${job.location}</td></tr>
+<tr><th>Post Name</th><td>${job.post_name}</td></tr>
+<tr><th>Salary</th><td>${job.salary}</td></tr>
+</table>
+`;
+
+jobContainer.appendChild(block);
 
 });
 
@@ -302,12 +342,6 @@ loadNotifications();
 
 </script>
 
-<div class="card-body editorial-body">
-	<div class="ku-job-wrapper">
-  <div id="ku-job-container"></div>
-</div>
-
-<script src="ku-jobs-api.js"></script>
 
 <!-- ----------------------------------------------------- Ended Row Wise -->
 
