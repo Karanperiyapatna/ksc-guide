@@ -4,6 +4,7 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 from datetime import datetime
 from dotenv import load_dotenv
+import json
 
 # Load environment variables
 load_dotenv()
@@ -14,12 +15,27 @@ CORS(app)
 app.config['SECRET_KEY'] = os.getenv("SECRET_KEY")
 MAX_RECORDS = int(os.getenv("MAX_RECORDS", 3))
 
-jobs = []
+
+# ------------------------------------------------------- Recent Notifications Updation code -------------------------------------------------------
+
+DATA_FILE = "jobs.json"
+
+
+def load_jobs():
+    if os.path.exists(DATA_FILE):
+        with open(DATA_FILE, "r") as f:
+            return json.load(f)
+    return []
+
+
+def save_jobs(jobs):
+    with open(DATA_FILE, "w") as f:
+        json.dump(jobs, f)
 
 
 @app.route("/api/add-job", methods=["POST"])
 def add_job():
-    global jobs
+    jobs = load_jobs()
 
     data = request.json
 
@@ -33,18 +49,23 @@ def add_job():
         "published_date": datetime.utcnow().isoformat()
     }
 
-    # Insert new job at first
+    # insert new record at top
     jobs.insert(0, new_job)
 
-    # Keep only MAX_RECORDS
+    # keep only last 3
     jobs = jobs[:MAX_RECORDS]
+
+    save_jobs(jobs)
 
     return jsonify({"message": "Job added successfully"}), 201
 
 
 @app.route("/api/jobs", methods=["GET"])
 def get_jobs():
+    jobs = load_jobs()
     return jsonify(jobs)
+# ------------------------------------------------------- End Recent Notifications Updation code -------------------------------------------------------
+
 
 current_affairs = [
     "Government announces new policy reforms",

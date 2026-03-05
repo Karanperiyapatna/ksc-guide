@@ -272,6 +272,36 @@
 	📝 Recent Notification
 </div>
 
+<div id="recentNotifications"></div>
+
+<script>
+
+function loadNotifications(){
+
+fetch("/api/jobs")
+.then(res => res.json())
+.then(data => {
+
+let container = document.getElementById("recentNotifications");
+container.innerHTML = "";
+
+data.forEach(job => {
+
+let p = document.createElement("p");
+p.textContent = job.location;
+
+container.appendChild(p);
+
+});
+
+});
+
+}
+
+loadNotifications();
+
+</script>
+
 <div class="card-body editorial-body">
 	<div class="ku-job-wrapper">
   <div id="ku-job-container"></div>
