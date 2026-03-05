@@ -5,13 +5,6 @@
 	box-sizing: border-box;
 }
 
-/* ------------------------------------------ Commited to resolve displaying half page */
-/* body{
-    margin:0;
-    padding:0;
-    font-family: Arial, sans-serif;
-} */
-
 /* Header Styling */
 .main-header {
 	display: flex;
