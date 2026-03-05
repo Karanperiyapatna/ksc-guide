@@ -83,10 +83,6 @@ international_news = [
 def home():
     return render_template('index.html')
 
-@app.route('/jobs')
-def job_page():
-    return render_template('jobs.html', jobs=jobs)
-
 @app.route('/current-affairs')
 def current_affairs_page():
     return render_template('current_affairs.html', news=current_affairs)
