@@ -268,13 +268,14 @@ table tr {
 
   <div id="recentNotifications"></div>
 
-  <div class="ku-job-wrapper">
-    <div id="ku-job-container"></div>
+  	<div class="ku-job-wrapper">
+	<div id="ku-job-container"></div>
   </div>
 
 </div>
 
 <script>
+
 
 function loadNotifications(){
 
@@ -290,21 +291,23 @@ jobContainer.innerHTML = "";
 
 data.forEach((job,index) => {
 
-let tableHTML = `
-<table border="1" width="100%" style="margin-bottom:15px;">
+let table = document.createElement("table");
+table.border = "1";
+table.style.marginBottom = "15px";
+
+table.innerHTML = `
 <tr><th>Title</th><td>${job.title}</td></tr>
 <tr><th>Organization</th><td>${job.organization}</td></tr>
 <tr><th>Posts</th><td>${job.posts}</td></tr>
 <tr><th>Location</th><td>${job.location}</td></tr>
 <tr><th>Post Name</th><td>${job.post_name}</td></tr>
 <tr><th>Salary</th><td>${job.salary}</td></tr>
-</table>
 `;
 
 if(index === 0){
-recentContainer.innerHTML = tableHTML;
+recentContainer.appendChild(table);
 }else{
-jobContainer.innerHTML += tableHTML;
+jobContainer.appendChild(table);
 }
 
 });

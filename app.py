@@ -64,6 +64,8 @@ def add_job():
 def get_jobs():
     jobs = load_jobs()
     return jsonify(jobs)
+
+
 # ------------------------------------------------------- End Recent Notifications Updation code -------------------------------------------------------
 
 
