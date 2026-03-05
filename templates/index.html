@@ -222,42 +222,34 @@
   font-size: 18px;
 }
 
-/* ---------------------------- For recent recrutiment */
 
-.ku-job-wrapper {
-  width: 100%;
-  padding: 40px 20px;
-  background: #f5f5f5;
+/* ------------------------------------------- Table Set for Recent Notification  */
+
+table {
+	width: 100%;
+	border-collapse: collapse;
+	background: #fff;
+	border-radius: 8px;
+	overflow: hidden;
+	box-shadow: 0 2px 6px rgba(0,0,0,0.05);
 }
 
-.ku-job-card {
-  background: #ffffff;
-  border-radius: 8px;
-  padding: 25px 30px;
-  margin-bottom: 25px;
-  border: 1px solid #e0e0e0;
+table th {
+	background: #f0f2f5;
+	text-align: left;
+	padding: 10px;
+	width: 30%;
 }
 
-.ku-job-title {
-  font-size: 26px;
-  font-weight: 700;
-  margin-bottom: 18px;
-  color: #2c2c2c;
+table td {
+	padding: 10px;
 }
 
-.ku-job-row {
-  margin-bottom: 8px;
-  font-size: 17px;
+table tr {
+	border-bottom: 1px solid #eee;
 }
 
-.ku-job-label {
-  font-weight: 700;
-  color: #333;
-}
 
-.ku-job-value {
-  color: #444;
-}
 
 </style>
 
@@ -272,12 +264,14 @@
  📝 Recent Notification
 </div>
 
-<div id="recentNotifications"></div>
-
 <div class="card-body editorial-body">
+
+  <div id="recentNotifications"></div>
+
   <div class="ku-job-wrapper">
     <div id="ku-job-container"></div>
   </div>
+
 </div>
 
 <script>
