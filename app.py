@@ -1,12 +1,50 @@
 from flask import Flask, render_template
+import os
+from flask import Flask, request, jsonify
+from flask_cors import CORS
+from datetime import datetime
+from dotenv import load_dotenv
+
+# Load environment variables
+load_dotenv()
 
 app = Flask(__name__)
+CORS(app)
 
-# Sample Data
-jobs = [
-    {"title": "Software Developer", "company": "ABC Tech"},
-    {"title": "Data Analyst", "company": "XYZ Corp"}
-]
+app.config['SECRET_KEY'] = os.getenv("SECRET_KEY")
+MAX_RECORDS = int(os.getenv("MAX_RECORDS", 3))
+
+jobs = []
+
+
+@app.route("/api/add-job", methods=["POST"])
+def add_job():
+    global jobs
+
+    data = request.json
+
+    new_job = {
+        "title": data.get("title"),
+        "organization": data.get("organization"),
+        "posts": data.get("posts"),
+        "location": data.get("location"),
+        "post_name": data.get("post_name"),
+        "salary": data.get("salary"),
+        "published_date": datetime.utcnow().isoformat()
+    }
+
+    # Insert new job at first
+    jobs.insert(0, new_job)
+
+    # Keep only MAX_RECORDS
+    jobs = jobs[:MAX_RECORDS]
+
+    return jsonify({"message": "Job added successfully"}), 201
+
+
+@app.route("/api/jobs", methods=["GET"])
+def get_jobs():
+    return jsonify(jobs)
 
 current_affairs = [
     "Government announces new policy reforms",
