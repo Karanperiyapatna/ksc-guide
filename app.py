@@ -103,5 +103,9 @@ def updation_page():
 def aboutus_page():
     return render_template('aboutus.html')
 
+@app.route('/testing')
+def testing_page():
+    return render_template('testing.html')
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)

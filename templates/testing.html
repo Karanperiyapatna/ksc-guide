@@ -1,6 +1,10 @@
-{% extends "base.html" %}
-
-{% block extra_css %}
+<!DOCTYPE html>
+<html>
+<head>
+	<title>KSC Guide Jobs Portal</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 	<style>
 		/* ===== Main Container ===== */
 		.dashboard-container {
@@ -132,15 +136,130 @@
 		}
 
 		/* Social Media Link */
+		
+		.ku-follow-box {
+			width: 100%;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			padding: 60px 20px;
+			background-color: #f3f3f3;
+		}
 
+		.ku-follow-card {
+			background: #ffffff;
+			padding: 40px;
+			border-radius: 20px;
+			border: 2px solid #e5e5e5;
+			text-align: center;
+			max-width: 900px;
+			width: 100%;
+			box-sizing: border-box;
+		}
+
+		.ku-follow-title {
+			color: #4b2ea7;
+			font-size: 40px;
+			font-weight: 700;
+			margin-bottom: 20px;
+		}
+
+		.ku-follow-subtitle {
+			font-size: 20px;
+			color: #555;
+			margin-bottom: 40px;
+		}
+
+		.ku-follow-buttons {
+			display: flex;
+			justify-content: center;
+			gap: 40px;
+			margin-bottom: 30px;
+			flex-wrap: wrap;
+		}
+
+		.ku-btn {
+			text-decoration: none;
+			padding: 20px 60px;
+			font-size: 22px;
+			font-weight: 600;
+			border-radius: 50px;
+			color: #ffffff;
+			display: inline-block;
+			transition: all 0.3s ease;
+		}
+
+		.ku-telegram-btn {
+			background-color: #3498db;
+		}
+
+		.ku-telegram-btn:hover {
+			background-color: #2980b9;
+		}
+
+		.ku-whatsapp-btn {
+			background-color: #2ecc71;
+		}
+
+		.ku-whatsapp-btn:hover {
+			background-color: #27ae60;
+		}
+
+		.ku-follow-bottom {
+			font-style: italic;
+			color: #666;
+			font-size: 18px;
+		}
+
+		/* Table Styles */
+		table {
+			width: 100%;
+			display:block;
+			overflow-x:auto;
+			border-collapse: collapse;
+			background: #fff;
+			border-radius: 8px;
+			box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+			margin-bottom: 15px;
+		}
+
+		table th {
+			background: #f0f2f5;
+			text-align: left;
+			padding: 10px;
+			width: 30%;
+		}
+
+		table td {
+			padding: 10px;
+		}
+
+		table tr {
+			border-bottom: 1px solid #eee;
+		}
 	</style>
+</head>
+<body>
 
-	{% endblock %}
+	<!-- Header Section -->
+	<header class="main-header">
+		<div class="logo-title">
+			<img src="{{ url_for('static', filename='logo.png') }}" alt="Logo" class="logo">
+			<h1>KSC Guide Job Portal</h1>
+		</div>
 
-{% block content %}
+		<nav class="nav-menu">
+			<a href="/">Home</a>
+			<a href="/jobs">Karnataka Jobs</a>
+			<a href="/central-govt">Central Jobs</a>
+			<a href="/aboutus">Private Jobs</a>
+			<a href="/current-affairs">All Recruitment</a>
+			<a href="/aboutus">Quick Links</a>
+		</nav>
+	</header>
 
+	<hr>
 
-<div>
 	<!-- Main Content -->
 	<main class="content">
 		<h2>Welcome Job Portal</h2>
@@ -156,6 +275,47 @@
 			<div id="recentNotifications"></div>
 			<div id="ku-job-container"></div>
 		</div>
+
+		<script>
+			function loadNotifications() {
+				fetch("/api/jobs")
+					.then(res => res.json())
+					.then(data => {
+						let recentContainer = document.getElementById("recentNotifications");
+						let jobContainer = document.getElementById("ku-job-container");
+
+						recentContainer.innerHTML = "";
+						jobContainer.innerHTML = "";
+
+						data.forEach((job, index) => {
+							let table = document.createElement("table");
+
+							table.innerHTML = `
+								<tr><th>Title</th><td>${job.title}</td></tr>
+								<tr><th>Organization</th><td>${job.organization}</td></tr>
+								<tr><th>Posts</th><td>${job.posts}</td></tr>
+								<tr><th>Location</th><td>${job.location}</td></tr>
+								<tr><th>Post Name</th><td>${job.post_name}</td></tr>
+								<tr><th>Salary</th><td>${job.salary}</td></tr>
+							`;
+
+							if (index === 0) {
+								recentContainer.appendChild(table);
+							} else {
+								jobContainer.appendChild(table);
+							}
+						});
+					})
+					.catch(error => {
+						console.error('Error loading notifications:', error);
+						document.getElementById("recentNotifications").innerHTML = "<p>No recent notifications</p>";
+						document.getElementById("ku-job-container").innerHTML = "";
+					});
+			}
+
+			// Load notifications when page loads
+			document.addEventListener('DOMContentLoaded', loadNotifications);
+		</script>
 
 		<!-- Recent Recruitment -->
 		<div class="card-header purple-header">
@@ -287,7 +447,6 @@
 		</div>
 	</section>
 
-	</div>
-
-	{% endblock %}
+</body>
+</html>
 
