@@ -1,5 +1,11 @@
 
+# -------------------- on 10-03-2026
 
+Updating CSS Style Details - Issue that not displaying complete page, struck in Follow our Telegram Page Block
+
+If anything changed in Git, need to run this two cmd to update in the production 
+git pull origin master
+sudo systemctl restart kscguide
 
 # -------------------- on 02-03-2026
 
