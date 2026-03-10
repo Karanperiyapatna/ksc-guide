@@ -244,11 +244,11 @@
 		#ku-job-container table{
 			width:100%;
 			border-collapse:collapse;
-			margin-bottom:20px;   /* space between blocks */
-			background:#ffffff;
+			margin-bottom:20px;
+			background:#fff;
 			border-radius:8px;
 			overflow:hidden;
-			box-shadow:0 3px 8px rgba(0,0,0,0.08);
+			box-shadow:0 2px 6px rgba(0,0,0,0.08);
 		}
 
 		#recentNotifications th,
@@ -269,6 +269,32 @@
 
 		#recentNotifications tr:last-child td,
 		#ku-job-container tr:last-child td{
+			border-bottom:none;
+		}
+
+		#recentNotifications table{
+   			width:100%;
+			border-collapse:collapse;
+			margin-bottom:20px;
+			background:#fff;
+			border-radius:8px;
+			overflow:hidden;
+			box-shadow:0 2px 6px rgba(0,0,0,0.08);
+		}
+
+		#recentNotifications th{
+			background:#f5f7fa;
+			text-align:left;
+			padding:10px;
+			width:35%;
+		}
+
+		#recentNotifications td{
+			padding:10px;
+			border-bottom:1px solid #eee;
+		}
+
+		#recentNotifications tr:last-child td{
 			border-bottom:none;
 		}
 	</style>
@@ -311,44 +337,40 @@
 		</div>
 
 		<script>
-			function loadNotifications() {
-				fetch("/api/jobs")
-					.then(res => res.json())
-					.then(data => {
-						let recentContainer = document.getElementById("recentNotifications");
-						let jobContainer = document.getElementById("ku-job-container");
+		function loadNotifications() {
+			fetch("/api/jobs")
+				.then(res => res.json())
+				.then(data => {
 
-						recentContainer.innerHTML = "";
-						jobContainer.innerHTML = "";
+					let recentContainer = document.getElementById("recentNotifications");
+					recentContainer.innerHTML = "";
 
-						data.forEach((job, index) => {
-							let table = document.createElement("table");
+					data.forEach((job) => {
 
-							table.innerHTML = `
-								<tr><th>Title</th><td>${job.title}</td></tr>
-								<tr><th>Organization</th><td>${job.organization}</td></tr>
-								<tr><th>Posts</th><td>${job.posts}</td></tr>
-								<tr><th>Location</th><td>${job.location}</td></tr>
-								<tr><th>Post Name</th><td>${job.post_name}</td></tr>
-								<tr><th>Salary</th><td>${job.salary}</td></tr>
-							`;
+						let table = document.createElement("table");
+						table.classList.add("job-card");
 
-							if (index === 0) {
-								recentContainer.appendChild(table);
-							} else {
-								jobContainer.appendChild(table);
-							}
-						});
-					})
-					.catch(error => {
-						console.error('Error loading notifications:', error);
-						document.getElementById("recentNotifications").innerHTML = "<p>No recent notifications</p>";
-						document.getElementById("ku-job-container").innerHTML = "";
+						table.innerHTML = `
+							<tr><th>Title</th><td>${job.title}</td></tr>
+							<tr><th>Organization</th><td>${job.organization}</td></tr>
+							<tr><th>Posts</th><td>${job.posts}</td></tr>
+							<tr><th>Location</th><td>${job.location}</td></tr>
+							<tr><th>Post Name</th><td>${job.post_name}</td></tr>
+							<tr><th>Salary</th><td>${job.salary}</td></tr>
+						`;
+
+						recentContainer.appendChild(table);
+
 					});
-			}
+				})
+				.catch(error => {
+					console.error('Error loading notifications:', error);
+					document.getElementById("recentNotifications").innerHTML =
+						"<p>No recent notifications</p>";
+				});
+		}
 
-			// Load notifications when page loads
-			document.addEventListener('DOMContentLoaded', loadNotifications);
+		document.addEventListener('DOMContentLoaded', loadNotifications);
 		</script>
 
 
