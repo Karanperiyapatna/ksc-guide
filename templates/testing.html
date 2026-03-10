@@ -237,6 +237,40 @@
 		table tr {
 			border-bottom: 1px solid #eee;
 		}
+
+
+
+		#recentNotifications table,
+		#ku-job-container table{
+			width:100%;
+			border-collapse:collapse;
+			margin-bottom:20px;   /* space between blocks */
+			background:#ffffff;
+			border-radius:8px;
+			overflow:hidden;
+			box-shadow:0 3px 8px rgba(0,0,0,0.08);
+		}
+
+		#recentNotifications th,
+		#ku-job-container th{
+			background:#f4f6f9;
+			text-align:left;
+			padding:10px;
+			width:35%;
+			font-weight:600;
+			border-bottom:1px solid #eee;
+		}
+
+		#recentNotifications td,
+		#ku-job-container td{
+			padding:10px;
+			border-bottom:1px solid #eee;
+		}
+
+		#recentNotifications tr:last-child td,
+		#ku-job-container tr:last-child td{
+			border-bottom:none;
+		}
 	</style>
 </head>
 <body>
@@ -266,7 +300,7 @@
 		<p>Get all new Recruitments Updation here.....</p>
 		<br>
 
-		<!-- Recent Notification -->
+		<!-------------------------------------------------------- Recent Notification -->
 		<div class="card-header purple-header">
 			📝 Recent Notification
 		</div>
@@ -317,7 +351,9 @@
 			document.addEventListener('DOMContentLoaded', loadNotifications);
 		</script>
 
-		<!-- Recent Recruitment -->
+
+
+		<!-------------------------------------------------------------- Recent Recruitment -->
 		<div class="card-header purple-header">
 			📝 Recent Recruitment
 		</div>
