@@ -51,6 +51,69 @@
 		.footer-logo{ width:70px; margin-bottom:10px; } 
 		.social-icons a{ color:#ccc; text-decoration:none; } 
 		.social-icons a:hover{ color:white; } 
+
+		/* -------------------------------------------------- For Recent Notification */
+		
+		#recentNotifications table,
+		#ku-job-container table{
+			width:100%;
+			margin-bottom: 25px;
+			border-collapse:collapse;
+			margin-bottom:20px;
+			background:#fff;
+			border-radius:8px;
+			overflow:hidden;
+			box-shadow:0 2px 6px rgba(0,0,0,0.08);
+		}
+
+		#recentNotifications th,
+		#ku-job-container th{
+			background:#f4f6f9;
+			text-align:left;
+			padding:10px;
+			width:35%;
+			font-weight:600;
+			border-bottom:1px solid #eee;
+		}
+
+		#recentNotifications td,
+		#ku-job-container td{
+			padding:10px;
+			border-bottom:1px solid #eee;
+		}
+
+		#recentNotifications tr:last-child td,
+		#ku-job-container tr:last-child td{
+			border-bottom:none;
+		}
+
+		#recentNotifications table{
+   			width:100%;
+			border-collapse:collapse;
+			margin-bottom:20px;
+			background:#fff;
+			border-radius:8px;
+			overflow:hidden;
+			box-shadow:0 2px 6px rgba(0,0,0,0.08);
+		}
+
+		#recentNotifications th{
+			background:#f5f7fa;
+			text-align:left;
+			padding:10px;
+			width:35%;
+		}
+
+		#recentNotifications td{
+			padding:10px;
+			border-bottom:1px solid #eee;
+		}
+
+		#recentNotifications tr:last-child td{
+			border-bottom:none;
+		}
+
+		/* -------------------------------------------------- For Recent Notification End */
 		
 		/* Responsive */ 
 		@media(max-width:900px){ .dashboard-container{ grid-template-columns:repeat(2,1fr); } } 
@@ -86,7 +149,7 @@
 		<p>Get all new Recruitments Updation here.....</p>
 		<br>
 
-		<!-- Recent Notification -->
+		<!------------------------------------------------------------- Recent Notification -->
 		<div class="card-header purple-header">
 			📝 Recent Notification
 		</div>
@@ -96,7 +159,47 @@
 			<div id="ku-job-container"></div>
 		</div>
 
-		<!-- Recent Recruitment -->
+		<script>
+			function loadNotifications() {
+				fetch("/api/jobs")
+					.then(res => res.json())
+					.then(data => {
+
+						let recentContainer = document.getElementById("recentNotifications");
+						recentContainer.innerHTML = "";
+
+						data.forEach((job) => {
+
+							let table = document.createElement("table");
+							table.classList.add("job-card");
+
+							table.innerHTML = `
+								<tr><th>Title</th><td>${job.title}</td></tr>
+								<tr><th>Organization</th><td>${job.organization}</td></tr>
+								<tr><th>Posts</th><td>${job.posts}</td></tr>
+								<tr><th>Location</th><td>${job.location}</td></tr>
+								<tr><th>Post Name</th><td>${job.post_name}</td></tr>
+								<tr><th>Salary</th><td>${job.salary}</td></tr>
+							`;
+
+							recentContainer.appendChild(table);
+
+						});
+					})
+					.catch(error => {
+						console.error('Error loading notifications:', error);
+						document.getElementById("recentNotifications").innerHTML =
+							"<p>No recent notifications</p>";
+					});
+			}
+
+			document.addEventListener('DOMContentLoaded', loadNotifications);
+		</script>
+		<!----------------------------------------------------------- Recent Notification End -->
+
+
+
+		<!--------------------------------------------------------------- Recent Recruitment -->
 		<div class="card-header purple-header">
 			📝 Recent Recruitment
 		</div>
