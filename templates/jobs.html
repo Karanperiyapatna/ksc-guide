@@ -1,9 +1,0 @@
-{% extends 'base.html' %}
-{% block content %}
-<h2>Job Vacancies</h2>
-<ul>
-    {% for job in jobs %}
-    <li>{{ job.title }} - {{ job.company }}</li>
-    {% endfor %}
-</ul>
-{% endblock %}
