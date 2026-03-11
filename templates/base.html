@@ -4,10 +4,15 @@
 	<title>KSC Guide Jobs Portal</title>
 	<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+	<style>
+		body{ margin:0; font-family: Arial, Helvetica, sans-serif; background:#f4f6f9; }
+		.content{ max-width:1200px; margin:auto; padding:20px; } 
+	</style>
 </head>
 <body>
 
-	<!-- Header Section -->
+	<!----------------------------------------------------------------------- Header Section -->
 	<header class="main-header">
 		<div class="logo-title">
 			<img src="{{ url_for('static', filename='logo.png') }}" alt="Logo" class="logo">
@@ -38,7 +43,7 @@
 		
 		<!-- Column 1: Logo + Contact -->
 		<div class="footer-column">
-			<img src="logo.png" alt="Company Logo" class="footer-logo">
+			<img src="{{ url_for('static', filename='logo.png') }}" class="footer-logo">
 			<p><strong>KSC Guide</strong></p>
 			<p>Banashankari</p>
 			<p>Phone: +91-9845680399</p>

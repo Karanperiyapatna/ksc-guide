@@ -1,9 +1,7 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title>KSC Guide Jobs Portal</title>
-	<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+{% extends "base.html" %}
+
+{% block content %}
+
 	<style>
 		
 
@@ -118,27 +116,7 @@
 
 
 	</style>
-</head>
-<body>
 
-	<!-- Header Section -->
-	<header class="main-header">
-		<div class="logo-title">
-			<img src="{{ url_for('static', filename='logo.png') }}" alt="Logo" class="logo">
-			<h1>KSC Guide Job Portal</h1>
-		</div>
-
-		<nav class="nav-menu">
-			<a href="/">Home</a>
-			<a href="/jobs">Karnataka Jobs</a>
-			<a href="/central-govt">Central Jobs</a>
-			<a href="/privatejob">Private Jobs</a>
-			<a href="/current-affairs">All Recruitment</a>
-			<a href="/aboutus">Quick Links</a>
-		</nav>
-	</header>
-
-	<hr>
 
 	<!-- Main Content -->
 	<main class="content">
@@ -295,40 +273,5 @@
 		<!--------------------------------------------------------------- 3 Column Dashboard End -->
 	</main>
 
-	<!-- Footer Section -->
-	<section class="footer-section">
-		<!-- Column 1: Logo + Contact -->
-		<div class="footer-column">
-			<img src="{{ url_for('static', filename='logo.png') }}" alt="Company Logo" class="footer-logo">
-			<p><strong>KSC Guide</strong></p>
-			<p>Banashankari</p>
-			<p>Phone: +91-9845680399</p>
-			<p>Email: kscguide@gmail.com</p>
-		</div>
-
-		<!-- Column 2: Navigation Links -->
-		<div class="footer-column">
-			<h3>Quick Links</h3>
-			<ul>
-				<li><a href="/">Home</a></li>
-				<li><a href="{{ url_for('aboutus_page') }}">About Us</a></li>
-				<!-- <li><a href="{{ url_for('testing_page') }}">Testing</a></li> -->
-				<li><a href="#">Services</a></li>
-				<li><a href="#">Contact Us</a></li>
-				<li><a href="#">Privacy Policy</a></li>
-				<li><a href="#">FAQ</a></li>
-			</ul>
-		</div>
-
-		<!-- Column 3: Social Links -->
-		<div class="footer-column">
-			<h3>Follow Us</h3>
-			<div class="social-icons">
-				<a href="#"><i class="fab fa-facebook-f"></i> Facebook</a><br>
-				<a href="#"><i class="fab fa-twitter"></i> Twitter</a><br>
-				<a href="#"><i class="fab fa-instagram"></i> Instagram</a><br>
-				<a href="#"><i class="fab fa-linkedin-in"></i> LinkedIn</a>
-			</div>
-		</div>
-	</section>
-</body>
+	
+{% endblock %}
