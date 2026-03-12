@@ -104,17 +104,16 @@ def privatejob_page():
     return render_template('private_job.html')
 
 @app.route('/karnataka_jobs')
-def privatejob_page():
+def karnataka_jobs_page():
     return render_template('karnataka_jobs.html')
 
 @app.route('/central_jobs')
-def privatejob_page():
+def central_jobs_page():
     return render_template('central_jobs.html')
 
 @app.route('/recruitments')
 def recruitments_page():
     return render_template('recruitments.html')
-
 
 
 @app.route('/testing')
