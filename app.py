@@ -99,7 +99,7 @@ def updation_page():
 def aboutus_page():
     return render_template('aboutus.html')
 
-@app.route('/privatejob')
+@app.route('/privatejobs')
 def privatejob_page():
     return render_template('private_job.html')
 
