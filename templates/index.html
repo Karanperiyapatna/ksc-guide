@@ -167,12 +167,20 @@
 							table.classList.add("job-card");
 
 							table.innerHTML = `
-								<tr><th>Title</th><td>${job.title}</td></tr>
 								<tr><th>Organization</th><td>${job.organization}</td></tr>
-								<tr><th>Posts</th><td>${job.posts}</td></tr>
-								<tr><th>Location</th><td>${job.location}</td></tr>
 								<tr><th>Post Name</th><td>${job.post_name}</td></tr>
+								<tr><th>Vacancy</th><td>${job.vacancy}</td></tr>
+								<tr><th>Qualification</th><td>${job.qualification}</td></tr>
 								<tr><th>Salary</th><td>${job.salary}</td></tr>
+								<tr><th>Last Date</th><td>${job.last_date}</td></tr>
+								<tr>
+									<th>Apply</th>
+									<td>
+										<button class="apply-btn" onclick="applyJob('${job.apply_link}')">
+											Apply Now
+										</button>
+									</td>
+								</tr>
 							`;
 
 							recentContainer.appendChild(table);
@@ -184,6 +192,10 @@
 						document.getElementById("recentNotifications").innerHTML =
 							"<p>No recent notifications</p>";
 					});
+			}
+
+			function applyJob(link){
+				window.location.href = "updation.html?url=" + encodeURIComponent(link);
 			}
 
 			document.addEventListener('DOMContentLoaded', loadNotifications);
