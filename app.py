@@ -40,13 +40,13 @@ def add_job():
     data = request.json
 
     new_job = {
-        "title": data.get("title"),
         "organization": data.get("organization"),
-        "posts": data.get("posts"),
-        "location": data.get("location"),
         "post_name": data.get("post_name"),
+        "vacancy": data.get("vacancy"),
+        "qualification": data.get("qualification"),
         "salary": data.get("salary"),
-        "published_date": datetime.utcnow().isoformat()
+        "last_date":data.get('last_date'),
+        "apply_link": data.get('link')
     }
 
     # insert new record at top
@@ -98,6 +98,14 @@ def updation_page():
 @app.route('/aboutus')
 def aboutus_page():
     return render_template('aboutus.html')
+
+@app.route('/studymaterial')
+def aboutus_page():
+    return render_template('studymaterial.html')
+
+@app.route('/banking')
+def aboutus_page():
+    return render_template('banking.html')
 
 @app.route('/privatejobs')
 def privatejob_page():

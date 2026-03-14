@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<style>
+.private-job-container{
+	display:flex;
+	justify-content:center;
+	align-items:center;
+	min-height:60vh;
+	background:#f5f7fb;
+}
+
+.no-job-card{
+	background:#ffffff;
+	padding:40px 60px;
+	border-radius:10px;
+	box-shadow:0 4px 15px rgba(0,0,0,0.1);
+	text-align:center;
+}
+
+.no-job-card h2{
+	margin-bottom:15px;
+	color:#333;
+	font-size:28px;
+}
+
+.no-job-card p{
+	font-size:18px;
+	color:#777;
+}
+
+.icon{
+	font-size:50px;
+	margin-bottom:15px;
+}
+</style>
+
+<div class="private-job-container">
+	<div class="no-job-card">
+		<div class="icon">💼</div>
+		<h2>Study Material</h2>
+		<p>No current Material.<br>Please check again later.</p>
+	</div>
+</div>
+
+{% endblock %}
