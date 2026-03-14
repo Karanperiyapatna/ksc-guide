@@ -100,11 +100,11 @@ def aboutus_page():
     return render_template('aboutus.html')
 
 @app.route('/studymaterial')
-def aboutus_page():
+def studymaterial_page():
     return render_template('studymaterial.html')
 
 @app.route('/banking')
-def aboutus_page():
+def banking_page():
     return render_template('banking.html')
 
 @app.route('/privatejobs')
