@@ -46,7 +46,8 @@ def add_job():
         "qualification": data.get("qualification"),
         "salary": data.get("salary"),
         "last_date":data.get('last_date'),
-        "apply_link": data.get('link')
+        "apply_link": data.get('link'),
+        "content":data.get('content')
     }
 
     # insert new record at top
