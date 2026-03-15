@@ -1,47 +1,67 @@
-{% extends "base.html" %}
+<!DOCTYPE html>
+<html>
+<head>
+<title>Karnataka Jobs</title>
+</head>
 
-{% block content %}
+<body>
 
-<style>
-.private-job-container{
-	display:flex;
-	justify-content:center;
-	align-items:center;
-	min-height:60vh;
-	background:#f5f7fb;
+<h1>Karnataka Government Jobs</h1>
+
+<div id="recentNotifications"></div>
+
+<script>
+
+fetch("/api/jobs")
+.then(res=>res.json())
+.then(data=>{
+
+let container=document.getElementById("recentNotifications");
+
+data.reverse().forEach(job=>{
+
+if(job.category==="Karnataka"){
+
+let card=document.createElement("div");
+card.className="update-card";
+
+card.innerHTML=`
+
+<h2>${job.post_name}</h2>
+
+<p>
+
+<strong>Organization:</strong> ${job.organization}<br>
+<strong>Vacancy:</strong> ${job.vacancy}<br>
+<strong>Qualification:</strong> ${job.qualification}<br>
+<strong>Salary:</strong> ${job.salary}<br>
+<strong>Last Date:</strong> ${job.last_date}
+
+</p>
+
+<button onclick="redirectToUpdate('${job.id}')" class="apply-btn">
+
+Apply Now
+
+</button>
+
+`;
+
+container.appendChild(card);
+
 }
 
-.no-job-card{
-	background:#ffffff;
-	padding:40px 60px;
-	border-radius:10px;
-	box-shadow:0 4px 15px rgba(0,0,0,0.1);
-	text-align:center;
+});
+
+});
+
+function redirectToUpdate(id){
+
+window.location.href="updation.html?id="+id;
+
 }
 
-.no-job-card h2{
-	margin-bottom:15px;
-	color:#333;
-	font-size:28px;
-}
+</script>
 
-.no-job-card p{
-	font-size:18px;
-	color:#777;
-}
-
-.icon{
-	font-size:50px;
-	margin-bottom:15px;
-}
-</style>
-
-<div class="private-job-container">
-	<div class="no-job-card">
-		<div class="icon">💼</div>
-		<h2>Karnataka Jobs</h2>
-		<p>No recruitment currently.<br>Please check again later.</p>
-	</div>
-</div>
-
-{% endblock %}
+</body>
+</html>

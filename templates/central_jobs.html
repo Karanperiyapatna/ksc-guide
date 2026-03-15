@@ -1,3 +1,63 @@
+<h1>Central Government Jobs</h1>
+
+<div id="recentNotifications"></div>
+
+<script>
+
+fetch("/api/jobs")
+.then(res=>res.json())
+.then(data=>{
+
+let container=document.getElementById("recentNotifications");
+
+data.reverse().forEach(job=>{
+
+if(job.category==="Central"){
+
+let card=document.createElement("div");
+card.className="update-card";
+
+card.innerHTML=`
+
+<h2>${job.post_name}</h2>
+
+<p>
+
+<strong>Organization:</strong> ${job.organization}<br>
+<strong>Vacancy:</strong> ${job.vacancy}<br>
+<strong>Qualification:</strong> ${job.qualification}<br>
+<strong>Salary:</strong> ${job.salary}<br>
+<strong>Last Date:</strong> ${job.last_date}
+
+</p>
+
+<button onclick="redirectToUpdate('${job.id}')" class="apply-btn">
+
+Apply Now
+
+</button>
+
+`;
+
+container.appendChild(card);
+
+}
+
+});
+
+});
+
+function redirectToUpdate(id){
+
+window.location.href="updation.html?id="+id;
+
+}
+
+</script>
+
+<!-- 
+
+
 {% extends "base.html" %}
 
 {% block content %}
@@ -44,4 +104,4 @@
 	</div>
 </div>
 
-{% endblock %}
+{% endblock %} -->
