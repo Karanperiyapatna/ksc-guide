@@ -161,58 +161,59 @@
 
 	<script>
 
-document.addEventListener("DOMContentLoaded", function(){
 
-const params = new URLSearchParams(window.location.search);
-const id = params.get("id");
+		function loadNotifications(){
 
-fetch("/api/jobs")
-.then(response => response.json())
-.then(data => {
+		fetch("/api/jobs")
+		.then(res => res.json())
+		.then(data => {
 
-let container = document.getElementById("updates-container");
+		let recentContainer=document.getElementById("recentNotifications");
+		recentContainer.innerHTML="";
 
-let job = data.find(j => j.id === id);
+		data.slice(0,3).forEach(job=>{
 
-if(job){
+		let table=document.createElement("table");
 
-container.innerHTML = `
-<div style="background:#fff;padding:20px;border-radius:8px">
+		table.innerHTML=`
 
-<h2>${job.post_name}</h2>
+		<tr><th>Organization</th><td>${job.organization}</td></tr>
+		<tr><th>Post Name</th><td>${job.post_name}</td></tr>
+		<tr><th>Vacancy</th><td>${job.vacancy}</td></tr>
+		<tr><th>Qualification</th><td>${job.qualification}</td></tr>
+		<tr><th>Salary</th><td>${job.salary}</td></tr>
+		<tr><th>Last Date</th><td>${job.last_date}</td></tr>
+		<tr><th>Last Date</th><td>${job.content}</td></tr>
 
-<table border="1" cellpadding="10" width="100%">
-<tr><th>Organization</th><td>${job.organization}</td></tr>
-<tr><th>Post Name</th><td>${job.post_name}</td></tr>
-<tr><th>Vacancy</th><td>${job.vacancy}</td></tr>
-<tr><th>Qualification</th><td>${job.qualification}</td></tr>
-<tr><th>Salary</th><td>${job.salary}</td></tr>
-<tr><th>Last Date</th><td>${job.last_date}</td></tr>
-</table>
+		<tr>
+		<th>Apply</th>
+		<td>
 
-<h3>Notification Details</h3>
+		<button 
+		onclick="openUpdate('${job.id}')"
+		style="background:red;color:white;padding:12px 20px;border:none;border-radius:6px;cursor:pointer;">
 
-<div>${job.content}</div>
+		Apply Now
 
-<br>
+		</button>
 
-<a href="${job.apply_link}" target="_blank"
-style="background:red;color:white;padding:12px 20px;text-decoration:none;border-radius:5px">
-Apply Here
-</a>
+		</td>
+		</tr>
 
-</div>
-`;
+		`;
 
-}else{
-container.innerHTML="<h3>Job not found</h3>";
-}
+		recentContainer.appendChild(table);
 
-});
+		});
 
-});
+		});
+
+		}
+		
+		document.addEventListener("DOMContentLoaded",loadNotifications);
 
 	</script>
+
 
 	<!-- Update Block 1 -->
 	<div class="update-card" id="update1">
