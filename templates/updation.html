@@ -161,28 +161,27 @@
 
 	<script>
 
-	function loadUpdate(){
+	document.addEventListener("DOMContentLoaded", function(){
 
 	const params = new URLSearchParams(window.location.search);
 	const id = params.get("id");
 
 	fetch("/api/jobs")
-	.then(res => res.json())
+	.then(response => response.json())
 	.then(data => {
 
 	let container = document.getElementById("updates-container");
 
-	data.forEach(job => {
+	let job = data.find(j => j.id == id);
 
-	if(job.id == id){
+	if(job){
 
 	container.innerHTML = `
+	<div style="background:#fff;padding:20px;border-radius:8px">
 
-	<div class="job-details">
+	<h2>${job.post_name}</h2>
 
-	<h2>Recruitment Notification</h2>
-
-	<table class="job-table">
+	<table border="1" cellpadding="10" width="100%">
 
 	<tr>
 	<th>Organization</th>
@@ -220,27 +219,25 @@
 
 	<p>${job.content}</p>
 
-	<div class="apply-box">
+	<br>
 
-	<a href="${job.apply_link}" target="_blank" class="apply-btn">
+	<a href="${job.apply_link}" target="_blank"
+	style="background:red;color:white;padding:12px 20px;text-decoration:none;border-radius:5px">
 	Apply Here
 	</a>
 
 	</div>
-
-	</div>
-
 	`;
 
+	}else{
+
+	container.innerHTML="<h3>Job not found</h3>";
+
 	}
 
 	});
 
 	});
-
-	}
-
-	document.addEventListener("DOMContentLoaded", loadUpdate);
 
 	</script>
 
