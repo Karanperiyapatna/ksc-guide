@@ -159,58 +159,65 @@
 
 	<div id="updates-container"></div>
 
+
 	<script>
 
+		function loadUpdate(){
 
-		function loadNotifications(){
+
+		const params = new URLSearchParams(window.location.search);
+		const id = params.get("id");
 
 		fetch("/api/jobs")
+
 		.then(res => res.json())
 		.then(data => {
 
-		let recentContainer=document.getElementById("recentNotifications");
-		recentContainer.innerHTML="";
+		let container = document.getElementById("updates-container");
 
-		data.slice(0,3).forEach(job=>{
+		container.innerHTML="";
 
-		let table=document.createElement("table");
+		data.forEach(job => {
 
-		table.innerHTML=`
+		if(job.id == id){
 
-		<tr><th>Organization</th><td>${job.organization}</td></tr>
-		<tr><th>Post Name</th><td>${job.post_name}</td></tr>
-		<tr><th>Vacancy</th><td>${job.vacancy}</td></tr>
-		<tr><th>Qualification</th><td>${job.qualification}</td></tr>
-		<tr><th>Salary</th><td>${job.salary}</td></tr>
-		<tr><th>Last Date</th><td>${job.last_date}</td></tr>
-		<tr><th>Last Date</th><td>${job.content}</td></tr>
+		container.innerHTML = `
 
-		<tr>
-		<th>Apply</th>
-		<td>
+		<div class="update-card">
 
-		<button 
-		onclick="openUpdate('${job.id}')"
-		style="background:red;color:white;padding:12px 20px;border:none;border-radius:6px;cursor:pointer;">
+		<h2>${job.post_name}</h2>
 
-		Apply Now
+		<p>${job.content}</p>
 
-		</button>
+		<div class="related-section">
 
-		</td>
-		</tr>
+		<h3>Apply Link</h3>
+
+		<ul class="related-links">
+
+		<li>
+		<a href="${job.apply_link}" target="_blank">
+		Apply Here
+		</a>
+		</li>
+
+		</ul>
+
+		</div>
+
+		</div>
 
 		`;
 
-		recentContainer.appendChild(table);
+		}
 
 		});
 
 		});
 
 		}
-		
-		document.addEventListener("DOMContentLoaded",loadNotifications);
+
+		document.addEventListener("DOMContentLoaded", loadUpdate);
 
 	</script>
 
