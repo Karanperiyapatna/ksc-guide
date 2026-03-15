@@ -119,58 +119,63 @@
 
 
 	<div id="updates-container"></div>
-
+	
+	<div id="recentNotifications"></div>
 
 	<script>
 
-				function loadNotifications(){
+		function loadNotifications(){
 
-				fetch("/api/jobs")
-				.then(res => res.json())
-				.then(data => {
+		fetch("/api/jobs")
+		.then(res => res.json())
+		.then(data => {
 
-				let recentContainer=document.getElementById("recentNotifications");
-				recentContainer.innerHTML="";
+		let recentContainer=document.getElementById("recentNotifications");
+		recentContainer.innerHTML="";
 
-				data.slice(0,3).forEach(job=>{
+		data.slice(0,3).forEach(job=>{
 
-				let table=document.createElement("table");
+		let table=document.createElement("table");
 
-				table.innerHTML=`
+		table.innerHTML=`
 
-				<tr><th>Organization</th><td>${job.organization}</td></tr>
-				<tr><th>Post Name</th><td>${job.post_name}</td></tr>
-				<tr><th>Vacancy</th><td>${job.vacancy}</td></tr>
-				<tr><th>Qualification</th><td>${job.qualification}</td></tr>
-				<tr><th>Salary</th><td>${job.salary}</td></tr>
-				<tr><th>Last Date</th><td>${job.last_date}</td></tr>
+		<tr><th>Organization</th><td>${job.organization}</td></tr>
+		<tr><th>Post Name</th><td>${job.post_name}</td></tr>
+		<tr><th>Vacancy</th><td>${job.vacancy}</td></tr>
+		<tr><th>Qualification</th><td>${job.qualification}</td></tr>
+		<tr><th>Salary</th><td>${job.salary}</td></tr>
+		<tr><th>Last Date</th><td>${job.last_date}</td></tr>
 
-				<tr>
-				<th>Apply</th>
-				<td>
+		<tr>
+		<th>Apply</th>
+		<td>
 
-				<button 
-				onclick="redirectToUpdate('${job.id}')"
-				style="background:red;color:white;padding:12px 20px;border:none;border-radius:6px;cursor:pointer;">
+		<button 
+		onclick="redirectToUpdate('${job.id}')"
+		style="background:red;color:white;padding:12px 20px;border:none;border-radius:6px;cursor:pointer;">
 
-				Apply Now
+		Apply Now
 
-				</button>
+		</button>
 
-				</td>
-				</tr>
+		</td>
+		</tr>
 
-				`;
+		`;
 
-				recentContainer.appendChild(table);
+		recentContainer.appendChild(table);
 
-				});
+		});
 
-				});
+		});
 
-				}
+		}
 
-				document.addEventListener("DOMContentLoaded",loadNotifications);
+		function redirectToUpdate(id){
+		window.location.href = "updation.html?id=" + id;
+		}
+
+		document.addEventListener("DOMContentLoaded",loadNotifications);
 
 	</script>
 
