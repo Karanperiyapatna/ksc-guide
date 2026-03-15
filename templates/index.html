@@ -143,19 +143,15 @@
 		.then(res => res.json())
 		.then(data => {
 
-		let recentContainer = document.getElementById("recentNotifications");
-		let recruitmentContainer = document.getElementById("ku-job-container");
-
+		let recentContainer=document.getElementById("recentNotifications");
 		recentContainer.innerHTML="";
-		recruitmentContainer.innerHTML="";
-
-		/* -------- Recent Notification (limit 3) -------- */
 
 		data.slice(0,3).forEach(job=>{
 
 		let table=document.createElement("table");
 
 		table.innerHTML=`
+
 		<tr><th>Organization</th><td>${job.organization}</td></tr>
 		<tr><th>Post Name</th><td>${job.post_name}</td></tr>
 		<tr><th>Vacancy</th><td>${job.vacancy}</td></tr>
@@ -166,54 +162,37 @@
 		<tr>
 		<th>Apply</th>
 		<td>
+
 		<button 
-		onclick="openUpdate(${job.id})"
-		style="background:red;color:white;padding:12px 20px;font-size:14px;border:none;border-radius:6px;cursor:pointer;">
+		onclick="openUpdate('${job.id}')"
+		style="background:red;color:white;padding:12px 20px;border:none;border-radius:6px;cursor:pointer;">
+
 		Apply Now
+
 		</button>
+
 		</td>
 		</tr>
+
 		`;
 
 		recentContainer.appendChild(table);
 
 		});
 
-
-		/* -------- Recent Recruitment (limit 10) -------- */
-
-		data.slice(0,10).forEach(job=>{
-
-		let link=document.createElement("a");
-
-		link.href="updation.html?id="+job.id;
-		link.className="update-row";
-
-		link.innerHTML="📝 "+job.title;
-
-		recruitmentContainer.appendChild(link);
-
-		});
-
-		})
-		.catch(error=>{
-
-		console.error("Error loading jobs:",error);
-
-		document.getElementById("recentNotifications").innerHTML=
-		"<p>No recent notifications</p>";
-
 		});
 
 		}
 
 		function openUpdate(id){
+
 		window.location.href="updation.html?id="+id;
+
 		}
 
 		document.addEventListener("DOMContentLoaded",loadNotifications);
 
-		</script>
+	</script>
 
 
 	<!-- Main Content -->
