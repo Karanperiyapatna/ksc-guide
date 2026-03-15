@@ -123,91 +123,54 @@
 
 	<script>
 
-		function loadUpdate(){
+				function loadNotifications(){
 
-		const params = new URLSearchParams(window.location.search);
-		const id = params.get("id");
+				fetch("/api/jobs")
+				.then(res => res.json())
+				.then(data => {
 
-		fetch("/api/jobs")
-		.then(res => res.json())
-		.then(data => {
+				let recentContainer=document.getElementById("recentNotifications");
+				recentContainer.innerHTML="";
 
-		let container = document.getElementById("updates-container");
-		container.innerHTML="";
+				data.slice(0,3).forEach(job=>{
 
-		data.forEach(job => {
+				let table=document.createElement("table");
 
-		if(job.id == id){
+				table.innerHTML=`
 
-		let shortContent = job.content.substring(0,120) + "...";
+				<tr><th>Organization</th><td>${job.organization}</td></tr>
+				<tr><th>Post Name</th><td>${job.post_name}</td></tr>
+				<tr><th>Vacancy</th><td>${job.vacancy}</td></tr>
+				<tr><th>Qualification</th><td>${job.qualification}</td></tr>
+				<tr><th>Salary</th><td>${job.salary}</td></tr>
+				<tr><th>Last Date</th><td>${job.last_date}</td></tr>
 
-		container.innerHTML = `
+				<tr>
+				<th>Apply</th>
+				<td>
 
-		<div class="update-card">
+				<button 
+				onclick="redirectToUpdate('${job.id}')"
+				style="background:red;color:white;padding:12px 20px;border:none;border-radius:6px;cursor:pointer;">
 
-		<h2>${job.post_name}</h2>
+				Apply Now
 
-		<p id="shortContent">${shortContent}</p>
+				</button>
 
-		<p id="fullContent" style="display:none;">
-		${job.content}
-		</p>
+				</td>
+				</tr>
 
-		<button onclick="toggleContent()" class="read-btn">
-		Read More
-		</button>
+				`;
 
-		<div class="related-section">
+				recentContainer.appendChild(table);
 
-		<h3>Apply Link</h3>
+				});
 
-		<ul class="related-links">
+				});
 
-		<li>
-		<a href="${job.apply_link}" target="_blank">
-		Apply Here
-		</a>
-		</li>
+				}
 
-		</ul>
-
-		</div>
-
-		</div>
-
-		`;
-
-		}
-
-		});
-
-		});
-
-		}
-
-		function toggleContent(){
-
-		let shortText = document.getElementById("shortContent");
-		let fullText = document.getElementById("fullContent");
-		let btn = document.querySelector(".read-btn");
-
-		if(fullText.style.display === "none"){
-
-		fullText.style.display = "block";
-		shortText.style.display = "none";
-		btn.innerText = "Read Less";
-
-		}else{
-
-		fullText.style.display = "none";
-		shortText.style.display = "block";
-		btn.innerText = "Read More";
-
-		}
-
-		}
-
-		document.addEventListener("DOMContentLoaded", loadUpdate);
+				document.addEventListener("DOMContentLoaded",loadNotifications);
 
 	</script>
 
