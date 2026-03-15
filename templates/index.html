@@ -185,10 +185,8 @@
 		}
 
 		function openUpdate(id){
-
-		window.location.href="updation.html?id="+id;
-
-		}
+			window.location.href="updation.html?id="+id;
+			}
 
 		document.addEventListener("DOMContentLoaded",loadNotifications);
 
@@ -252,11 +250,9 @@
 								<tr>
 									<th>Apply</th>
 									<td>
-										<button 
-											onclick="applyJob('${job.apply_link}')"
-											style="background:red;color:white;padding:12px 20px;font-size:14px;border:none;border-radius:6px;cursor:pointer;">
-											Apply Now
-										</button>
+										<button onclick="openUpdate('${job.id}')">
+										Apply Now
+									</button>
 									</td>
 								</tr>
 							`;

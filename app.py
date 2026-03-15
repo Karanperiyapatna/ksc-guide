@@ -40,9 +40,10 @@ def add_job():
 	jobs = load_jobs()
 	data = request.json
 
+	import uuid
+
 	new_job = {
-		"id": str(uuid.uuid4()),   # unique id
-		"title": data.get("post_name"),  # title for update page
+		"id": str(uuid.uuid4()),
 		"organization": data.get("organization"),
 		"post_name": data.get("post_name"),
 		"vacancy": data.get("vacancy"),
