@@ -233,6 +233,51 @@
 
 
 		<!--------------------------------------------------------------- Recent Recruitment -->
+
+		<div class="card-header purple-header">
+			📝 Recent Recruitment
+			</div>
+
+			<div class="card-body editorial-body" id="recentRecruitment">
+		</div>
+
+		<script>
+
+			function loadRecentRecruitment(){
+
+			fetch("/api/jobs")
+			.then(res => res.json())
+			.then(data => {
+
+			let container = document.getElementById("recentRecruitment");
+
+			container.innerHTML = ""; // remove old rows
+
+			data
+			.slice(0,10) // show only 10
+			.forEach(job => {
+
+			let link = document.createElement("a");
+
+			link.className = "update-row";
+			link.href = "updation.html?id=" + job.id;
+
+			link.innerText = "📢 " + (job.title || job.post_name);
+
+			container.appendChild(link);
+
+			});
+
+			});
+
+			}
+
+			document.addEventListener("DOMContentLoaded", loadRecentRecruitment);
+
+		</script>
+
+
+
 		<div class="card-header purple-header">
 			📝 Recent Recruitment
 		</div>
