@@ -7,110 +7,126 @@
 .page-title{
 text-align:center;
 font-size:34px;
-margin-top:30px;
-color:#2c3e50;
+margin:30px 0;
 font-weight:700;
+color:#2c3e50;
 }
 
+/* Container */
+
 #recentNotifications{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
-gap:25px;
-padding:30px;
-max-width:1400px;
+max-width:900px;
 margin:auto;
+padding:20px;
+display:flex;
+flex-direction:column;
+gap:20px;
 }
 
 /* Job Card */
 
 .update-card{
 background:white;
-border-radius:12px;
+border-radius:10px;
 padding:22px;
-box-shadow:0 8px 18px rgba(0,0,0,0.1);
-transition:0.3s;
+box-shadow:0 6px 18px rgba(0,0,0,0.08);
 border-left:6px solid #0d6efd;
-position:relative;
+transition:0.3s;
 }
 
 .update-card:hover{
-transform:translateY(-6px);
-box-shadow:0 12px 30px rgba(0,0,0,0.2);
+transform:translateY(-3px);
+box-shadow:0 10px 22px rgba(0,0,0,0.15);
 }
 
-/* Job Title */
+/* Title */
 
 .update-card h2{
-font-size:20px;
-color:#0d6efd;
 margin-bottom:12px;
+font-size:22px;
+color:#0d6efd;
 }
 
-/* Job Details */
+/* Job text */
 
 .job-details{
-font-size:14px;
+font-size:15px;
 line-height:1.7;
-color:#444;
-margin-bottom:15px;
+color:#333;
 }
 
-/* Labels */
+/* Hidden content */
 
-.job-details strong{
-color:#111;
+.more-content{
+display:none;
+margin-top:6px;
 }
 
-/* Apply Button */
+/* Buttons */
 
 .apply-btn{
-background:linear-gradient(135deg,#007bff,#0056d2);
-border:none;
-padding:10px 20px;
-border-radius:8px;
+margin-top:15px;
+background:#0d6efd;
 color:white;
-font-size:14px;
+border:none;
+padding:10px 18px;
+border-radius:6px;
 cursor:pointer;
-transition:0.3s;
+font-size:14px;
 }
 
 .apply-btn:hover{
-background:linear-gradient(135deg,#0056d2,#003f9e);
-transform:scale(1.05);
+background:#0849a6;
 }
 
-/* Last date highlight */
+/* Read More */
+
+.read-more{
+color:#0d6efd;
+cursor:pointer;
+font-weight:600;
+margin-left:5px;
+}
+
+.read-more:hover{
+text-decoration:underline;
+}
+
+/* Last Date */
 
 .last-date{
 color:#e63946;
 font-weight:bold;
 }
 
-/* Responsive */
-
-@media(max-width:600px){
-
-.page-title{
-font-size:26px;
-}
-
-.update-card{
-padding:18px;
-}
-
-}
-
 </style>
-
 
 <h1 class="page-title">Karnataka Government Jobs</h1>
 
 <div id="recentNotifications"></div>
 
-
 <script>
 
 let maxCards = 30;
+
+function toggleReadMore(id){
+
+let moreText=document.getElementById("more-"+id);
+let btn=document.getElementById("btn-"+id);
+
+if(moreText.style.display==="inline"){
+
+moreText.style.display="none";
+btn.innerText="Read More";
+
+}else{
+
+moreText.style.display="inline";
+btn.innerText="Read Less";
+
+}
+
+}
 
 function loadCategoryJobs(categoryName){
 
@@ -118,15 +134,26 @@ fetch("/api/jobs")
 .then(res => res.json())
 .then(data => {
 
-let container = document.getElementById("recentNotifications");
+let container=document.getElementById("recentNotifications");
 container.innerHTML="";
 
-let filtered = data
+let filtered=data
 .reverse()
 .filter(job => job.category && job.category.toLowerCase().trim() === categoryName.toLowerCase().trim())
-.slice(0,maxCards); // 👈 limit to 30
+.slice(0,maxCards);
 
 filtered.forEach(job => {
+
+let details=`
+<strong>Organization:</strong> ${job.organization}<br>
+<strong>Vacancy:</strong> ${job.vacancy}<br>
+<strong>Qualification:</strong> ${job.qualification}<br>
+<strong>Salary:</strong> ${job.salary}<br>
+<strong>Last Date:</strong> <span class="last-date">${job.last_date}</span>
+`;
+
+let shortText=details.substring(0,120);
+let remaining=details.substring(120);
 
 let card=document.createElement("div");
 card.className="update-card";
@@ -137,16 +164,13 @@ card.innerHTML=`
 
 <div class="job-details">
 
-<strong>Organization:</strong> ${job.organization}<br>
+${shortText}
 
-<strong>Vacancy:</strong> ${job.vacancy}<br>
+<span id="more-${job.id}" class="more-content">
+${remaining}
+</span>
 
-<strong>Qualification:</strong> ${job.qualification}<br>
-
-<strong>Salary:</strong> ${job.salary}<br>
-<strong>Content:</strong> ${job.content}<br>
-
-<strong>Last Date:</strong> <span class="last-date">${job.last_date}</span>
+${remaining.length > 0 ? `<span id="btn-${job.id}" class="read-more" onclick="toggleReadMore('${job.id}')">Read More</span>` : ""}
 
 </div>
 
@@ -169,9 +193,7 @@ window.location.href="updation.html?id="+id;
 }
 
 document.addEventListener("DOMContentLoaded", function(){
-
 loadCategoryJobs("Karnataka");
-
 });
 
 </script>
