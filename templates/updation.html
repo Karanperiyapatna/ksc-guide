@@ -168,65 +168,82 @@
 
 	<div id="recentNotifications"></div>
 
+
 	<script>
 
-	function loadNotifications(){
+		function getSequenceFromURL(){
 
-	fetch("/api/jobs")
-	.then(res => res.json())
-	.then(data => {
+		const params = new URLSearchParams(window.location.search);
+		return params.get("seq");
 
-	let container=document.getElementById("recentNotifications");
-	container.innerHTML="";
+		}
 
-	data.slice(0,20).forEach(job=>{
+		function loadNotifications(){
 
-	let card=document.createElement("div");
-	card.className="update-card";
+		fetch("/api/jobs")
+		.then(res => res.json())
+		.then(data => {
 
-	card.innerHTML=`
+		let container=document.getElementById("recentNotifications");
+		container.innerHTML="";
 
-	<h2>📢 ${job.post_name}</h2>
+		let seq = getSequenceFromURL();
 
-	<p>
-	<strong>Organization:</strong> ${job.organization}<br>
-	<strong>Vacancy:</strong> ${job.vacancy}<br>
-	<strong>Qualification:</strong> ${job.qualification}<br>
-	<strong>Salary:</strong> ${job.salary}<br>
-	<strong>Details:</strong> ${job.content}<br>
-	<strong>Last Date:</strong> ${job.last_date}
-	</p>
+		let filtered = data;
 
-	<div class="related-section">
-	<h3>Apply</h3>
+		if(seq){
+		filtered = data.filter(job => job.sequence_id === seq);
+		}
 
-	<ul class="related-links">
+		filtered.forEach(job => {
 
-	<li>
-	<button onclick="redirectToUpdate('${job.id}')" class="apply-btn">
-	Apply Now
-	</button>
-	</li>
+		let card=document.createElement("div");
+		card.className="update-card";
 
-	</ul>
+		card.innerHTML=`
 
-	</div>
+		<h2>📢 ${job.post_name}</h2>
 
-	`;
+		<p>
+		<strong>Organization:</strong> ${job.organization}<br>
+		<strong>Vacancy:</strong> ${job.vacancy}<br>
+		<strong>Qualification:</strong> ${job.qualification}<br>
+		<strong>Salary:</strong> ${job.salary}<br>
+		<strong>Details:</strong> ${job.content}<br>
+		<strong>Last Date:</strong> ${job.last_date}
+		</p>
 
-	container.appendChild(card);
+		<div class="related-section">
 
-	});
+		<h3>Apply</h3>
 
-	});
+		<ul class="related-links">
 
-	}
+		<li>
 
-	function redirectToUpdate(id){
-	window.location.href="updation.html?id="+id;
-	}
+		<a href="${job.apply_link}" target="_blank">
+		<button class="apply-btn">
+		Apply Now
+		</button>
+		</a>
 
-	document.addEventListener("DOMContentLoaded",loadNotifications);
+		</li>
+
+		</ul>
+
+		</div>
+
+		`;
+
+		container.appendChild(card);
+
+		});
+
+		});
+
+		}
+
+		document.addEventListener("DOMContentLoaded",loadNotifications);
 
 	</script>
 

@@ -5,6 +5,9 @@ from flask_cors import CORS
 from datetime import datetime
 from dotenv import load_dotenv
 import json
+import random
+import string
+import uuid
 import uuid
 
 # Load environment variables
@@ -22,7 +25,16 @@ MAX_RECORDS = int(os.getenv("MAX_RECORDS", 10))
 
 DATA_FILE = "jobs.json"
 
+def generate_sequence_id(existing_ids, length=10):
 
+	characters = string.ascii_lowercase + string.digits
+
+	while True:
+		seq_id = ''.join(random.choice(characters) for _ in range(length))
+
+		if seq_id not in existing_ids:
+			return seq_id
+		
 def load_jobs():
 	if os.path.exists(DATA_FILE):
 		with open(DATA_FILE, "r") as f:
@@ -40,10 +52,13 @@ def add_job():
 	jobs = load_jobs()
 	data = request.json
 
-	import uuid
+	existing_sequence_ids = {job.get("sequence_id") for job in jobs if "sequence_id" in job}
+
+	sequence_id = generate_sequence_id(existing_sequence_ids)
 
 	new_job = {
 		"id": str(uuid.uuid4()),
+		"sequence_id": sequence_id,
 		"title": data.get("title"),
 		"organization": data.get("organization"),
 		"post_name": data.get("post_name"),
@@ -62,7 +77,10 @@ def add_job():
 
 	save_jobs(jobs)
 
-	return jsonify({"message": "Job added successfully"}), 201
+	return jsonify({
+		"message": "Job added successfully",
+		"sequence_id": sequence_id
+	}), 201
 
 
 @app.route("/api/jobs", methods=["GET"])
