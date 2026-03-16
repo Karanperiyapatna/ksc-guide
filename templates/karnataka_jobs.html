@@ -15,11 +15,12 @@ color:#2c3e50;
 /* Container */
 
 #recentNotifications{
-max-width:900px;
+width:95%;
+max-width:1400px;
 margin:auto;
 padding:20px;
-display:flex;
-flex-direction:column;
+display:grid;
+grid-template-columns:1fr;
 gap:20px;
 }
 
@@ -166,9 +167,8 @@ font-weight:bold;
     container.innerHTML="";
 
     let filtered=data
-    .reverse()
     .filter(job => job.category && job.category.toLowerCase().trim() === categoryName.toLowerCase().trim())
-    .slice(0,maxCards);
+    .slice(0,maxCards);   // only 30 blocks
 
     filtered.forEach(job => {
 
@@ -184,13 +184,9 @@ font-weight:bold;
     <div class="job-details">
 
     <strong>Organization:</strong> ${job.organization}<br>
-
     <strong>Vacancy:</strong> ${job.vacancy}<br>
-
     <strong>Qualification:</strong> ${job.qualification}<br>
-
     <strong>Salary:</strong> ${job.salary}<br>
-
     <strong>Last Date:</strong> <span class="last-date">${job.last_date}</span>
 
     <br><br>
