@@ -1,16 +1,116 @@
-<!DOCTYPE html>
-<html>
-<head>
-<title>Karnataka Jobs</title>
-</head>
+{% extends "base.html" %}
 
-<body>
+{% block content %}
 
-<h1>Karnataka Government Jobs</h1>
+<style>
+
+.page-title{
+text-align:center;
+font-size:34px;
+margin-top:30px;
+color:#2c3e50;
+font-weight:700;
+}
+
+#recentNotifications{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+gap:25px;
+padding:30px;
+max-width:1400px;
+margin:auto;
+}
+
+/* Job Card */
+
+.update-card{
+background:white;
+border-radius:12px;
+padding:22px;
+box-shadow:0 8px 18px rgba(0,0,0,0.1);
+transition:0.3s;
+border-left:6px solid #0d6efd;
+position:relative;
+}
+
+.update-card:hover{
+transform:translateY(-6px);
+box-shadow:0 12px 30px rgba(0,0,0,0.2);
+}
+
+/* Job Title */
+
+.update-card h2{
+font-size:20px;
+color:#0d6efd;
+margin-bottom:12px;
+}
+
+/* Job Details */
+
+.job-details{
+font-size:14px;
+line-height:1.7;
+color:#444;
+margin-bottom:15px;
+}
+
+/* Labels */
+
+.job-details strong{
+color:#111;
+}
+
+/* Apply Button */
+
+.apply-btn{
+background:linear-gradient(135deg,#007bff,#0056d2);
+border:none;
+padding:10px 20px;
+border-radius:8px;
+color:white;
+font-size:14px;
+cursor:pointer;
+transition:0.3s;
+}
+
+.apply-btn:hover{
+background:linear-gradient(135deg,#0056d2,#003f9e);
+transform:scale(1.05);
+}
+
+/* Last date highlight */
+
+.last-date{
+color:#e63946;
+font-weight:bold;
+}
+
+/* Responsive */
+
+@media(max-width:600px){
+
+.page-title{
+font-size:26px;
+}
+
+.update-card{
+padding:18px;
+}
+
+}
+
+</style>
+
+
+<h1 class="page-title">Karnataka Government Jobs</h1>
 
 <div id="recentNotifications"></div>
 
+
 <script>
+
+let maxCards = 30;
 
 function loadCategoryJobs(categoryName){
 
@@ -21,9 +121,12 @@ fetch("/api/jobs")
 let container = document.getElementById("recentNotifications");
 container.innerHTML="";
 
-data.reverse().forEach(job => {
+let filtered = data
+.reverse()
+.filter(job => job.category && job.category.toLowerCase().trim() === categoryName.toLowerCase().trim())
+.slice(0,maxCards); // 👈 limit to 30
 
-if(job.category && job.category.toLowerCase().trim() === categoryName.toLowerCase().trim()){
+filtered.forEach(job => {
 
 let card=document.createElement("div");
 card.className="update-card";
@@ -32,13 +135,19 @@ card.innerHTML=`
 
 <h2>${job.post_name}</h2>
 
-<p>
+<div class="job-details">
+
 <strong>Organization:</strong> ${job.organization}<br>
+
 <strong>Vacancy:</strong> ${job.vacancy}<br>
+
 <strong>Qualification:</strong> ${job.qualification}<br>
+
 <strong>Salary:</strong> ${job.salary}<br>
-<strong>Last Date:</strong> ${job.last_date}
-</p>
+
+<strong>Last Date:</strong> <span class="last-date">${job.last_date}</span>
+
+</div>
 
 <button onclick="redirectToUpdate('${job.id}')" class="apply-btn">
 Apply Now
@@ -46,9 +155,7 @@ Apply Now
 
 `;
 
-container.prepend(card);
-
-}
+container.appendChild(card);
 
 });
 
@@ -62,11 +169,10 @@ window.location.href="updation.html?id="+id;
 
 document.addEventListener("DOMContentLoaded", function(){
 
-loadCategoryJobs("Karnataka");   // 👈 Specify category here
+loadCategoryJobs("Karnataka");
 
 });
 
 </script>
 
-</body>
-</html>
+{% endblock %}
