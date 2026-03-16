@@ -7,227 +7,173 @@
 .page-title{
 text-align:center;
 font-size:34px;
-margin:30px 0;
-font-weight:700;
+margin-top:30px;
 color:#2c3e50;
+font-weight:700;
 }
 
-/* Container */
-
 #recentNotifications{
-width:95%;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+gap:25px;
+padding:30px;
 max-width:1400px;
 margin:auto;
-padding:20px;
-display:grid;
-grid-template-columns:1fr;
-gap:20px;
 }
 
 /* Job Card */
 
 .update-card{
 background:white;
-border-radius:10px;
+border-radius:12px;
 padding:22px;
-box-shadow:0 6px 18px rgba(0,0,0,0.08);
-border-left:6px solid #0d6efd;
+box-shadow:0 8px 18px rgba(0,0,0,0.1);
 transition:0.3s;
-overflow:hidden;
+border-left:6px solid #0d6efd;
+position:relative;
 }
 
 .update-card:hover{
-transform:translateY(-3px);
-box-shadow:0 10px 22px rgba(0,0,0,0.15);
+transform:translateY(-6px);
+box-shadow:0 12px 30px rgba(0,0,0,0.2);
 }
 
-/* Title */
+/* Job Title */
 
 .update-card h2{
-margin-bottom:12px;
-font-size:22px;
+font-size:20px;
 color:#0d6efd;
+margin-bottom:12px;
 }
 
-/* Job text */
+/* Job Details */
 
 .job-details{
-font-size:15px;
+font-size:14px;
 line-height:1.7;
-color:#333;
-word-wrap:break-word;
-overflow-wrap:break-word;
+color:#444;
+margin-bottom:15px;
 }
 
-/* Content box */
+/* Labels */
 
-.job-content{
-display:none;
-margin-top:8px;
-padding:10px;
-background:#f8f9fa;
-border-radius:6px;
-max-height:250px;
-overflow-y:auto;
-white-space:pre-wrap;
-word-break:break-word;
+.job-details strong{
+color:#111;
 }
 
-/* Read more */
-
-.read-more{
-color:#0d6efd;
-font-weight:600;
-cursor:pointer;
-display:inline-block;
-margin-top:6px;
-}
-
-.read-more:hover{
-text-decoration:underline;
-}
-
-
-/* Hidden content */
-
-.more-content{
-display:none;
-margin-top:6px;
-}
-
-/* Buttons */
+/* Apply Button */
 
 .apply-btn{
-margin-top:15px;
-background:#0d6efd;
-color:white;
+background:linear-gradient(135deg,#007bff,#0056d2);
 border:none;
-padding:10px 18px;
-border-radius:6px;
-cursor:pointer;
+padding:10px 20px;
+border-radius:8px;
+color:white;
 font-size:14px;
+cursor:pointer;
+transition:0.3s;
 }
 
 .apply-btn:hover{
-background:#0849a6;
+background:linear-gradient(135deg,#0056d2,#003f9e);
+transform:scale(1.05);
 }
 
-/* Read More */
-
-.read-more{
-color:#0d6efd;
-cursor:pointer;
-font-weight:600;
-margin-left:5px;
-}
-
-.read-more:hover{
-text-decoration:underline;
-}
-
-/* Last Date */
+/* Last date highlight */
 
 .last-date{
 color:#e63946;
 font-weight:bold;
 }
 
+/* Responsive */
+
+@media(max-width:600px){
+
+.page-title{
+font-size:26px;
+}
+
+.update-card{
+padding:18px;
+}
+
+}
+
 </style>
+
+
+<h1 class="page-title">Karnataka Government Jobs</h1>
+
+<div id="recentNotifications"></div>
+
 
 <script>
 
-    let maxCards = 30;
+let maxCards = 30;
 
-    function toggleReadMore(seq){
+function loadCategoryJobs(categoryName){
 
-    let moreText = document.getElementById("content-"+seq);
-    let btn = document.getElementById("btn-"+seq);
+fetch("/api/jobs")
+.then(res => res.json())
+.then(data => {
 
-    if(moreText.style.display === "none"){
+let container = document.getElementById("recentNotifications");
+container.innerHTML="";
 
-    moreText.style.display = "block";
-    btn.innerText = "Read Less";
+let filtered = data
+.reverse()
+.filter(job => job.category && job.category.toLowerCase().trim() === categoryName.toLowerCase().trim())
+.slice(0,maxCards); // 👈 limit to 30
 
-    }else{
+filtered.forEach(job => {
 
-    moreText.style.display = "none";
-    btn.innerText = "Read More";
+let card=document.createElement("div");
+card.className="update-card";
 
-    }
+card.innerHTML=`
 
-    }
+<h2>${job.post_name}</h2>
 
-    function loadCategoryJobs(categoryName){
+<div class="job-details">
 
-    fetch("/api/jobs")
-    .then(res => res.json())
-    .then(data => {
+<strong>Organization:</strong> ${job.organization}<br>
 
-    let container=document.getElementById("recentNotifications");
-    container.innerHTML="";
+<strong>Vacancy:</strong> ${job.vacancy}<br>
 
-    let filtered=data
-    .filter(job => job.category && job.category.toLowerCase().trim() === categoryName.toLowerCase().trim())
-    .slice(0,maxCards);   // only 30 blocks
+<strong>Qualification:</strong> ${job.qualification}<br>
 
-    filtered.forEach(job => {
+<strong>Salary:</strong> ${job.salary}<br>
+<strong>Content:</strong> ${job.content}<br>
 
-    let seq = job.sequence_id;
+<strong>Last Date:</strong> <span class="last-date">${job.last_date}</span>
 
-    let card=document.createElement("div");
-    card.className="update-card";
+</div>
 
-    card.innerHTML=`
+<button onclick="redirectToUpdate('${job.id}')" class="apply-btn">
+Apply Now
+</button>
 
-    <h2>${job.post_name}</h2>
+`;
 
-    <div class="job-details">
+container.appendChild(card);
 
-    <strong>Organization:</strong> ${job.organization}<br>
-    <strong>Vacancy:</strong> ${job.vacancy}<br>
-    <strong>Qualification:</strong> ${job.qualification}<br>
-    <strong>Salary:</strong> ${job.salary}<br>
-    <strong>Last Date:</strong> <span class="last-date">${job.last_date}</span>
+});
 
-    <br><br>
+});
 
-    <div>
+}
 
-    <strong>Job Details:</strong>
+function redirectToUpdate(id){
+window.location.href="updation.html?id="+id;
+}
 
-    <div id="content-${seq}" style="display:none;margin-top:6px;">
-    ${job.content || "No additional details available"}
-    </div>
+document.addEventListener("DOMContentLoaded", function(){
 
-    <span id="btn-${seq}" class="read-more"
-    onclick="toggleReadMore('${seq}')">
-    Read More
-    </span>
+loadCategoryJobs("Karnataka");
 
-    </div>
-
-    </div>
-
-    <button onclick="redirectToUpdate('${seq}')" class="apply-btn">
-    Apply Now
-    </button>
-
-    `;
-
-    container.appendChild(card);
-
-    });
-
-    });
-
-    }
-
-    function redirectToUpdate(seq){
-    window.location.href="updation.html?seq="+seq;
-    }
-
-    document.addEventListener("DOMContentLoaded", function(){
-    loadCategoryJobs("Karnataka");
-    });
+});
 
 </script>
+
+{% endblock %}
