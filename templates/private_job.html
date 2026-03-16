@@ -1,56 +1,243 @@
-<h1>Private Jobs</h1>
+
+
+{% extends "base.html" %}
+
+{% block content %}
+
+<style>
+
+.page-title{
+text-align:center;
+font-size:34px;
+margin:30px 0;
+font-weight:700;
+color:#2c3e50;
+}
+
+/* Container */
+
+#recentNotifications{
+max-width:900px;
+margin:auto;
+padding:20px;
+display:flex;
+flex-direction:column;
+gap:20px;
+}
+
+/* Job Card */
+
+.update-card{
+background:white;
+border-radius:10px;
+padding:22px;
+box-shadow:0 6px 18px rgba(0,0,0,0.08);
+border-left:6px solid #0d6efd;
+transition:0.3s;
+overflow:hidden;
+}
+
+.update-card:hover{
+transform:translateY(-3px);
+box-shadow:0 10px 22px rgba(0,0,0,0.15);
+}
+
+/* Title */
+
+.update-card h2{
+margin-bottom:12px;
+font-size:22px;
+color:#0d6efd;
+}
+
+/* Job text */
+
+.job-details{
+font-size:15px;
+line-height:1.7;
+color:#333;
+word-wrap:break-word;
+overflow-wrap:break-word;
+}
+
+/* Content box */
+
+.job-content{
+display:none;
+margin-top:8px;
+padding:10px;
+background:#f8f9fa;
+border-radius:6px;
+max-height:250px;
+overflow-y:auto;
+white-space:pre-wrap;
+word-break:break-word;
+}
+
+/* Read more */
+
+.read-more{
+color:#0d6efd;
+font-weight:600;
+cursor:pointer;
+display:inline-block;
+margin-top:6px;
+}
+
+.read-more:hover{
+text-decoration:underline;
+}
+
+
+/* Hidden content */
+
+.more-content{
+display:none;
+margin-top:6px;
+}
+
+/* Buttons */
+
+.apply-btn{
+margin-top:15px;
+background:#0d6efd;
+color:white;
+border:none;
+padding:10px 18px;
+border-radius:6px;
+cursor:pointer;
+font-size:14px;
+}
+
+.apply-btn:hover{
+background:#0849a6;
+}
+
+/* Read More */
+
+.read-more{
+color:#0d6efd;
+cursor:pointer;
+font-weight:600;
+margin-left:5px;
+}
+
+.read-more:hover{
+text-decoration:underline;
+}
+
+/* Last Date */
+
+.last-date{
+color:#e63946;
+font-weight:bold;
+}
+
+</style>
+
+<h1 class="page-title">Karnataka Government Jobs</h1>
 
 <div id="recentNotifications"></div>
 
 <script>
 
-fetch("/api/jobs")
-.then(res=>res.json())
-.then(data=>{
+    let maxCards = 30;
 
-let container=document.getElementById("recentNotifications");
+    function toggleReadMore(id){
 
-data.reverse().forEach(job=>{
+    let moreText = document.getElementById("content-"+id);
+    let btn = document.getElementById("btn-"+id);
 
-if(job.category==="Private"){
+    if(moreText.style.display === "none"){
 
-let card=document.createElement("div");
-card.className="update-card";
+    moreText.style.display = "block";
+    btn.innerText = "Read Less";
 
-card.innerHTML=`
+    }else{
 
-<h2>${job.post_name}</h2>
+    moreText.style.display = "none";
+    btn.innerText = "Read More";
 
-<p>
+    }
 
-<strong>Organization:</strong> ${job.organization}<br>
-<strong>Vacancy:</strong> ${job.vacancy}<br>
-<strong>Qualification:</strong> ${job.qualification}<br>
-<strong>Salary:</strong> ${job.salary}<br>
-<strong>Last Date:</strong> ${job.last_date}
+    }
 
-</p>
+    function loadCategoryJobs(categoryName){
 
-<button onclick="redirectToUpdate('${job.id}')" class="apply-btn">
+    fetch("/api/jobs")
+    .then(res => res.json())
+    .then(data => {
 
-Apply Now
+    let container=document.getElementById("recentNotifications");
+    container.innerHTML="";
 
-</button>
+    let filtered=data
+    .reverse()
+    .filter(job => job.category && job.category.toLowerCase().trim() === categoryName.toLowerCase().trim())
+    .slice(0,maxCards);
 
-`;
+    filtered.forEach(job => {
 
-container.appendChild(card);
+    let card=document.createElement("div");
+    card.className="update-card";
 
-}
+    card.innerHTML=`
 
-});
+    <h2>${job.post_name}</h2>
 
-});
+    <div class="job-details">
 
-function redirectToUpdate(id){
+    <strong>Organization:</strong> ${job.organization}<br>
 
-window.location.href="updation.html?id="+id;
+    <strong>Vacancy:</strong> ${job.vacancy}<br>
 
-}
+    <strong>Qualification:</strong> ${job.qualification}<br>
+
+    <strong>Salary:</strong> ${job.salary}<br>
+
+    <strong>Last Date:</strong> <span class="last-date">${job.last_date}</span>
+
+    <br><br>
+
+    <div>
+
+    <strong>Job Details:</strong>
+
+    <div id="content-${job.id}" style="display:none; margin-top:6px;">
+    ${job.content || "No additional details available"}
+    </div>
+
+    <span id="btn-${job.id}" class="read-more"
+    onclick="toggleReadMore('${job.id}')">
+    Read More
+    </span>
+
+    </div>
+
+    </div>
+
+    <button onclick="redirectToUpdate('${job.id}')" class="apply-btn">
+    Apply Now
+    </button>
+
+    `;
+
+    container.appendChild(card);
+
+    });
+
+    });
+
+    }
+
+    function redirectToUpdate(id){
+    window.location.href="updation.html?id="+id;
+    }
+
+    document.addEventListener("DOMContentLoaded", function(){
+    loadCategoryJobs("Private");
+    });
 
 </script>
+
+{% endblock %}

@@ -44,6 +44,7 @@ def add_job():
 
 	new_job = {
 		"id": str(uuid.uuid4()),
+		"title": data.get("title"),
 		"organization": data.get("organization"),
 		"post_name": data.get("post_name"),
 		"vacancy": data.get("vacancy"),
