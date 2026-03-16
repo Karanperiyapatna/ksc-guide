@@ -114,9 +114,9 @@ def current_affairs_page():
 def international_news_page():
 	return render_template('international_news.html', news=international_news)
 
-@app.route('/updation')
+@app.route("/updation.html")
 def updation_page():
-	return render_template('updation.html')
+	return render_template("updation.html")
 
 @app.route('/aboutus')
 def aboutus_page():
