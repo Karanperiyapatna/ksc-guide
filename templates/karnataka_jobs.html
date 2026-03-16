@@ -133,18 +133,14 @@ font-weight:bold;
 
 </style>
 
-<h1 class="page-title">Karnataka Government Jobs</h1>
-
-<div id="recentNotifications"></div>
-
 <script>
 
     let maxCards = 30;
 
-    function toggleReadMore(id){
+    function toggleReadMore(seq){
 
-    let moreText = document.getElementById("content-"+id);
-    let btn = document.getElementById("btn-"+id);
+    let moreText = document.getElementById("content-"+seq);
+    let btn = document.getElementById("btn-"+seq);
 
     if(moreText.style.display === "none"){
 
@@ -176,6 +172,8 @@ font-weight:bold;
 
     filtered.forEach(job => {
 
+    let seq = job.sequence_id;
+
     let card=document.createElement("div");
     card.className="update-card";
 
@@ -201,12 +199,12 @@ font-weight:bold;
 
     <strong>Job Details:</strong>
 
-    <div id="content-${job.id}" style="display:none; margin-top:6px;">
+    <div id="content-${seq}" style="display:none;margin-top:6px;">
     ${job.content || "No additional details available"}
     </div>
 
-    <span id="btn-${job.id}" class="read-more"
-    onclick="toggleReadMore('${job.id}')">
+    <span id="btn-${seq}" class="read-more"
+    onclick="toggleReadMore('${seq}')">
     Read More
     </span>
 
@@ -214,7 +212,7 @@ font-weight:bold;
 
     </div>
 
-    <button onclick="redirectToUpdate('${job.id}')" class="apply-btn">
+    <button onclick="redirectToUpdate('${seq}')" class="apply-btn">
     Apply Now
     </button>
 
@@ -228,8 +226,8 @@ font-weight:bold;
 
     }
 
-    function redirectToUpdate(id){
-    window.location.href="updation.html?id="+id;
+    function redirectToUpdate(seq){
+    window.location.href="updation.html?seq="+seq;
     }
 
     document.addEventListener("DOMContentLoaded", function(){
@@ -237,5 +235,3 @@ font-weight:bold;
     });
 
 </script>
-
-{% endblock %}
