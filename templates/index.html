@@ -233,8 +233,52 @@
 
 
 		<!--------------------------------------------------------------- Recent Recruitment -->
+
+		<script>
+
+			function loadRecentRecruitment(){
+
+			fetch("/api/jobs")
+			.then(res => res.json())
+			.then(data => {
+
+			let container=document.querySelector(".editorial-body");
+			container.innerHTML="";   // remove old static rows
+
+			data
+			.reverse()                // latest first
+			.slice(0,10)              // limit to 10
+			.forEach(job => {
+
+			let link=document.createElement("a");
+
+			link.href="updation.html?id="+job.id;
+			link.className="update-row";
+			link.innerText="📢 " + (job.title || job.post_name);
+
+			container.appendChild(link);
+
+			});
+
+			});
+
+			}
+
+			document.addEventListener("DOMContentLoaded",loadRecentRecruitment);
+
+		</script>
+
+
 		<div class="card-header purple-header">
 			📝 Recent Recruitment
+		</div>
+
+		<div class="card-body editorial-body">
+		</div>
+
+		
+		<div class="card-header purple-header">
+			📝 Old Recruitment List
 		</div>
 
 		<div class="card-body editorial-body">
