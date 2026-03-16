@@ -107,94 +107,102 @@ font-weight:bold;
 
 <script>
 
-let maxCards = 30;
+    let maxCards = 30;
 
-function toggleReadMore(id){
+    function toggleReadMore(id){
 
-let moreText=document.getElementById("more-"+id);
-let btn=document.getElementById("btn-"+id);
+    let moreText = document.getElementById("content-"+id);
+    let btn = document.getElementById("btn-"+id);
 
-if(moreText.style.display==="inline"){
+    if(moreText.style.display === "none"){
 
-moreText.style.display="none";
-btn.innerText="Read More";
+    moreText.style.display = "block";
+    btn.innerText = "Read Less";
 
-}else{
+    }else{
 
-moreText.style.display="inline";
-btn.innerText="Read Less";
+    moreText.style.display = "none";
+    btn.innerText = "Read More";
 
-}
+    }
 
-}
+    }
 
-function loadCategoryJobs(categoryName){
+    function loadCategoryJobs(categoryName){
 
-fetch("/api/jobs")
-.then(res => res.json())
-.then(data => {
+    fetch("/api/jobs")
+    .then(res => res.json())
+    .then(data => {
 
-let container=document.getElementById("recentNotifications");
-container.innerHTML="";
+    let container=document.getElementById("recentNotifications");
+    container.innerHTML="";
 
-let filtered=data
-.reverse()
-.filter(job => job.category && job.category.toLowerCase().trim() === categoryName.toLowerCase().trim())
-.slice(0,maxCards);
+    let filtered=data
+    .reverse()
+    .filter(job => job.category && job.category.toLowerCase().trim() === categoryName.toLowerCase().trim())
+    .slice(0,maxCards);
 
-filtered.forEach(job => {
+    filtered.forEach(job => {
 
-let details=`
-<strong>Organization:</strong> ${job.organization}<br>
-<strong>Vacancy:</strong> ${job.vacancy}<br>
-<strong>Qualification:</strong> ${job.qualification}<br>
-<strong>Salary:</strong> ${job.salary}<br>
-<strong>Last Date:</strong> <span class="last-date">${job.last_date}</span>
-`;
+    let card=document.createElement("div");
+    card.className="update-card";
 
-let shortText=details.substring(0,120);
-let remaining=details.substring(120);
+    card.innerHTML=`
 
-let card=document.createElement("div");
-card.className="update-card";
+    <h2>${job.post_name}</h2>
 
-card.innerHTML=`
+    <div class="job-details">
 
-<h2>${job.post_name}</h2>
+    <strong>Organization:</strong> ${job.organization}<br>
 
-<div class="job-details">
+    <strong>Vacancy:</strong> ${job.vacancy}<br>
 
-${shortText}
+    <strong>Qualification:</strong> ${job.qualification}<br>
 
-<span id="more-${job.id}" class="more-content">
-${remaining}
-</span>
+    <strong>Salary:</strong> ${job.salary}<br>
 
-${remaining.length > 0 ? `<span id="btn-${job.id}" class="read-more" onclick="toggleReadMore('${job.id}')">Read More</span>` : ""}
+    <strong>Last Date:</strong> <span class="last-date">${job.last_date}</span>
 
-</div>
+    <br><br>
 
-<button onclick="redirectToUpdate('${job.id}')" class="apply-btn">
-Apply Now
-</button>
+    <div>
 
-`;
+    <strong>Job Details:</strong>
 
-container.appendChild(card);
+    <div id="content-${job.id}" style="display:none; margin-top:6px;">
+    ${job.content || "No additional details available"}
+    </div>
 
-});
+    <span id="btn-${job.id}" class="read-more"
+    onclick="toggleReadMore('${job.id}')">
+    Read More
+    </span>
 
-});
+    </div>
 
-}
+    </div>
 
-function redirectToUpdate(id){
-window.location.href="updation.html?id="+id;
-}
+    <button onclick="redirectToUpdate('${job.id}')" class="apply-btn">
+    Apply Now
+    </button>
 
-document.addEventListener("DOMContentLoaded", function(){
-loadCategoryJobs("Karnataka");
-});
+    `;
+
+    container.appendChild(card);
+
+    });
+
+    });
+
+    }
+
+    function redirectToUpdate(id){
+    window.location.href="updation.html?id="+id;
+    }
+
+    document.addEventListener("DOMContentLoaded", function(){
+    loadCategoryJobs("Karnataka");
+    });
 
 </script>
 
