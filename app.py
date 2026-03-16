@@ -51,6 +51,7 @@ def add_job():
 		"salary": data.get("salary"),
 		"last_date": data.get("last_date"),
 		"apply_link": data.get("link"),
+		"category": data.get("category"),
 		"content": data.get("content")
 	}
 
