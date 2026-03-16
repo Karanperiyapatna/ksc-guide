@@ -171,7 +171,7 @@
 
 	<script>
 
-		function getSequenceFromURL(){
+		function getSequenceID(){
 
 		const params = new URLSearchParams(window.location.search);
 		return params.get("seq");
@@ -184,18 +184,17 @@
 		.then(res => res.json())
 		.then(data => {
 
-		let container=document.getElementById("recentNotifications");
-		container.innerHTML="";
+		let container = document.getElementById("recentNotifications");
+		container.innerHTML = "";
 
-		let seq = getSequenceFromURL();
+		let seq = getSequenceID();
 
-		let filtered = data;
+		let job = data.find(j => j.sequence_id === seq);
 
-		if(seq){
-		filtered = data.filter(job => job.sequence_id === seq);
+		if(!job){
+		container.innerHTML="<p>Job not found</p>";
+		return;
 		}
-
-		filtered.forEach(job => {
 
 		let card=document.createElement("div");
 		card.className="update-card";
@@ -214,30 +213,17 @@
 		</p>
 
 		<div class="related-section">
-
 		<h3>Apply</h3>
 
-		<ul class="related-links">
-
-		<li>
-
-		<a href="${job.apply_link}" target="_blank">
-		<button class="apply-btn">
+		<button onclick="window.open('${job.apply_link}','_blank')" class="apply-btn">
 		Apply Now
 		</button>
-		</a>
-
-		</li>
-
-		</ul>
 
 		</div>
 
 		`;
 
 		container.appendChild(card);
-
-		});
 
 		});
 
