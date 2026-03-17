@@ -3,45 +3,219 @@
 {% block content %}
 
 <style>
-.private-job-container{
-	display:flex;
-	justify-content:center;
-	align-items:center;
-	min-height:60vh;
-	background:#f5f7fb;
-}
 
-.no-job-card{
-	background:#ffffff;
-	padding:40px 60px;
-	border-radius:10px;
-	box-shadow:0 4px 15px rgba(0,0,0,0.1);
-	text-align:center;
-}
 
-.no-job-card h2{
-	margin-bottom:15px;
-	color:#333;
-	font-size:28px;
-}
 
-.no-job-card p{
-	font-size:18px;
-	color:#777;
-}
+	/* Page */
+	body {
+		font-family: 'Segoe UI', sans-serif;
+		background: #f4f6f9;
+		margin: 0;
+	}
 
-.icon{
-	font-size:50px;
-	margin-bottom:15px;
-}
-</style>
+	/* Title */
+	.page-title {
+		text-align: center;
+		font-size: 32px;
+		margin: 25px 0;
+		color: #2c3e50;
+		font-weight: 700;
+	}
 
-<div class="private-job-container">
-	<div class="no-job-card">
-		<div class="icon">💼</div>
-		<h2>Banking</h2>
-		<p>Coming Soon</p>
+	/* Container wider */
+	#recentNotifications {
+		max-width: 1200px;   /* increased width */
+		margin: auto;
+		padding: 20px;
+	}
+
+	/* Card */
+	.update-card {
+		background: #fff;
+		border-radius: 12px;
+		padding: 30px 40px;   /* more inner spacing */
+		margin-bottom: 25px;
+		box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+	}
+
+	/* Title */
+	.job-title {
+		font-size: 24px;
+		font-weight: 600;
+		margin-bottom: 25px;
+		color: #2c3e50;
+	}
+
+	/* Row (KEY FIX) */
+	.info-row {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		padding: 14px 10px;   /* more spacing */
+		border-bottom: 1px solid #eee;
+	}
+
+	/* Label (LEFT) */
+	.info-label {
+		font-weight: 600;
+		color: #2c3e50;
+		min-width: 200px;   /* fixed width for alignment */
+	}
+
+	/* Value (RIGHT) */
+	.info-value {
+		color: #111;
+		text-align: right;
+		flex: 1;
+	}
+
+	/* Last Date highlight */
+	.last-date {
+		color: #e63946;
+		font-weight: bold;
+	}
+
+	/* Job Details Section */
+	.job-content-section {
+		margin-top: 30px;
+	}
+
+	/* Heading */
+	.job-content-title {
+		font-size: 22px;
+		font-weight: 700;
+		margin-bottom: 15px;
+	}
+
+	/* Content */
+	.job-content {
+		font-size: 16px;
+		line-height: 1.9;
+		color: #333;
+	}
+
+	/* Button */
+	.apply-btn {
+		margin-top: 25px;
+		background: #007bff;
+		color: #fff;
+		padding: 12px 22px;
+		border-radius: 6px;
+		border: none;
+		cursor: pointer;
+	}
+
+	.apply-btn:hover {
+		background: #0056d2;
+	}
+
+	/* Mobile */
+	@media(max-width:700px){
+		.info-row {
+			flex-direction: column;
+			align-items: flex-start;
+			gap: 5px;
+		}
+
+		.info-value {
+			text-align: left;
+		}
+	}
+
+
+	</style>
+
+
+	<h1 class="page-title">Banking Jobs</h1>
+
+	<div id="recentNotifications"></div>
+
+
+<script>
+
+	let maxCards = 30;
+
+	function loadCategoryJobs(categoryName){
+
+	fetch("/api/jobs")
+	.then(res => res.json())
+	.then(data => {
+
+	let container = document.getElementById("recentNotifications");
+	container.innerHTML = "Loading jobs...";
+
+	let filtered = data
+	.reverse()
+	.filter(job => job.category && job.category.toLowerCase().trim() === categoryName.toLowerCase().trim())
+	.slice(0, maxCards);
+
+	container.innerHTML = "";
+
+	filtered.forEach(job => {
+
+	let card = document.createElement("div");
+	card.className = "update-card";
+
+	card.innerHTML = `
+
+	<div class="job-title">${job.post_name}</div>
+
+	<div class="info-row">
+		<div class="info-label">Organization</div>
+		<div class="info-value">${job.organization}</div>
 	</div>
-</div>
+
+	<div class="info-row">
+	<div class="info-label">Vacancy</div>
+	<div class="info-value">${job.vacancy}</div>
+	</div>
+
+	<div class="info-row">
+	<div class="info-label">Qualification</div>
+	<div class="info-value">${job.qualification}</div>
+	</div>
+
+	<div class="info-row">
+	<div class="info-label">Salary</div>
+	<div class="info-value">${job.salary}</div>
+	</div>
+
+	<div class="info-row">
+	<div class="info-label">Last Date</div>
+	<div class="info-value last-date">${job.last_date}</div>
+	</div>
+
+	<div class="job-content-section">
+	<div class="job-content-title">Job Details</div>
+
+	<div class="job-content">
+	${job.content || "No details available"}
+	</div>
+
+	</div>
+
+	<button onclick="redirectToUpdate('${job.id}')" class="apply-btn">
+	Apply Now
+	</button>
+	
+	`;
+
+	container.appendChild(card);
+
+	});
+
+	});
+
+	}
+
+	function redirectToUpdate(id){
+	window.location.href = "updation.html?id=" + id;
+	}
+
+	document.addEventListener("DOMContentLoaded", function(){
+	loadCategoryJobs("Banking");
+	});
+
+</script>
 
 {% endblock %}
