@@ -133,88 +133,88 @@
 
 <script>
 
-let maxCards = 30;
+	let maxCards = 30;
 
-function loadCategoryJobs(categoryName){
+	function loadCategoryJobs(categoryName){
 
-fetch("/api/jobs")
-.then(res => res.json())
-.then(data => {
+	fetch("/api/jobs")
+	.then(res => res.json())
+	.then(data => {
 
-let container = document.getElementById("recentNotifications");
-container.innerHTML = "Loading jobs...";
+	let container = document.getElementById("recentNotifications");
+	container.innerHTML = "Loading jobs...";
 
-let filtered = data
-.reverse()
-.filter(job => job.category && job.category.toLowerCase().trim() === categoryName.toLowerCase().trim())
-.slice(0, maxCards);
+	let filtered = data
+	.reverse()
+	.filter(job => job.category && job.category.toLowerCase().trim() === categoryName.toLowerCase().trim())
+	.slice(0, maxCards);
 
-container.innerHTML = "";
+	container.innerHTML = "";
 
-filtered.forEach(job => {
+	filtered.forEach(job => {
 
-let card = document.createElement("div");
-card.className = "update-card";
+	let card = document.createElement("div");
+	card.className = "update-card";
 
-card.innerHTML = `
+	card.innerHTML = `
 
-<div class="job-title">${job.post_name}</div>
+	<div class="job-title">${job.post_name}</div>
 
-<div class="info-row">
-	<div class="info-label">Organization</div>
-	<div class="info-value">${job.organization}</div>
-</div>
+	<div class="info-row">
+		<div class="info-label">Organization</div>
+		<div class="info-value">${job.organization}</div>
+	</div>
 
-<div class="info-row">
-<div class="info-label">Vacancy</div>
-<div class="info-value">${job.vacancy}</div>
-</div>
+	<div class="info-row">
+	<div class="info-label">Vacancy</div>
+	<div class="info-value">${job.vacancy}</div>
+	</div>
 
-<div class="info-row">
-<div class="info-label">Qualification</div>
-<div class="info-value">${job.qualification}</div>
-</div>
+	<div class="info-row">
+	<div class="info-label">Qualification</div>
+	<div class="info-value">${job.qualification}</div>
+	</div>
 
-<div class="info-row">
-<div class="info-label">Salary</div>
-<div class="info-value">${job.salary}</div>
-</div>
+	<div class="info-row">
+	<div class="info-label">Salary</div>
+	<div class="info-value">${job.salary}</div>
+	</div>
 
-<div class="info-row">
-<div class="info-label">Last Date</div>
-<div class="info-value last-date">${job.last_date}</div>
-</div>
+	<div class="info-row">
+	<div class="info-label">Last Date</div>
+	<div class="info-value last-date">${job.last_date}</div>
+	</div>
 
-<div class="job-content-section">
-<div class="job-content-title">Job Details</div>
+	<div class="job-content-section">
+	<div class="job-content-title">Job Details</div>
 
-<div class="job-content">
-${job.content || "No details available"}
-</div>
+	<div class="job-content">
+	${job.content || "No details available"}
+	</div>
 
-</div>
+	</div>
 
-<button onclick="redirectToUpdate('${job.id}')" class="apply-btn">
-Apply Now
-</button>
+	<a href="${job.link}" target="_blank" class="apply-btn">
+		Apply Now
+	</a>
 
-`;
+	`;
 
-container.appendChild(card);
+	container.appendChild(card);
 
-});
+	});
 
-});
+	});
 
-}
+	}
 
-function redirectToUpdate(id){
-window.location.href = "updation.html?id=" + id;
-}
+	function redirectToUpdate(id){
+	window.location.href = "updation.html?id=" + id;
+	}
 
-document.addEventListener("DOMContentLoaded", function(){
-loadCategoryJobs("Karnataka");
-});
+	document.addEventListener("DOMContentLoaded", function(){
+	loadCategoryJobs("Karnataka");
+	});
 
 </script>
 
