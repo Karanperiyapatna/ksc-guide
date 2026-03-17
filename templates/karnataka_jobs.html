@@ -4,98 +4,94 @@
 
 <style>
 
-.page-title{
-text-align:center;
-font-size:34px;
-margin-top:30px;
-color:#2c3e50;
-font-weight:700;
-}
-
-#recentNotifications{
-display:flex;
-flex-direction:column;
-gap:20px;
-padding:20px;
-width:95%;
-max-width:1400px;
-margin:auto;
-}
-
-/* Job Card */
-
+/* Page */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f6f9;
+    font-family: 'Segoe UI', sans-serif;
+    background: #f4f6f9;
     margin: 0;
-    padding: 20px;
+    padding: 0;
 }
 
-/* Page Title */
+/* Title */
 .page-title {
     text-align: center;
-    font-size: 34px;
-    margin-top: 20px;
+    font-size: 32px;
+    margin: 25px 0;
     color: #2c3e50;
     font-weight: 700;
 }
 
 /* Container */
 #recentNotifications {
+    max-width: 1100px;
+    margin: auto;
+    padding: 10px;
     display: flex;
     flex-direction: column;
     gap: 20px;
-    width: 95%;
-    max-width: 1200px;
-    margin: auto;
 }
 
 /* Card */
 .update-card {
-    background: #ffffff;
-    padding: 24px;
+    background: #fff;
     border-radius: 12px;
-    box-shadow: 0 8px 18px rgba(0,0,0,0.1);
+    padding: 20px;
     border-left: 6px solid #0d6efd;
-    transition: all 0.3s ease;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+    transition: 0.3s;
 }
 
-/* Hover Effect */
 .update-card:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 12px 30px rgba(0,0,0,0.2);
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
 }
 
-/* Title */
-.update-card h2 {
-    margin-top: 0;
+/* Job Title */
+.job-title {
     font-size: 20px;
     color: #0d6efd;
-}
-
-/* Job Details */
-.job-details {
-    font-size: 14px;
-    line-height: 1.7;
-    color: #444;
+    font-weight: 600;
     margin-bottom: 15px;
-    word-wrap: break-word;
 }
 
-/* Labels */
-.job-details strong {
+/* Grid Layout (KEY FIX) */
+.job-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin-bottom: 15px;
+}
+
+/* Each Item Block */
+.job-item {
+    background: #f8f9fa;
+    padding: 10px 12px;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+/* Label */
+.job-item strong {
+    display: block;
+    color: #555;
+    font-size: 13px;
+}
+
+/* Value */
+.job-item span {
     color: #111;
+    font-weight: 500;
 }
 
 /* Content Box */
-.job-content {
-    margin-top: 6px;
-    padding: 10px;
-    background: #f8f9fa;
-    border-radius: 6px;
-    max-height: 200px;
+.job-content-box {
+    margin-top: 10px;
+    padding: 12px;
+    background: #eef3ff;
+    border-radius: 8px;
+    max-height: 180px;
     overflow-y: auto;
-    white-space: pre-wrap;
+    font-size: 14px;
 }
 
 /* Last Date */
@@ -104,79 +100,30 @@ body {
     font-weight: bold;
 }
 
-/* Apply Button */
+/* Button */
 .apply-btn {
-    background: linear-gradient(135deg, #007bff, #0056d2);
-    border: none;
-    padding: 10px 20px;
-    border-radius: 8px;
+    margin-top: 15px;
+    background: linear-gradient(135deg,#007bff,#0047b3);
     color: white;
-    font-size: 14px;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 8px;
     cursor: pointer;
+    font-size: 14px;
     transition: 0.3s;
 }
 
 .apply-btn:hover {
-    background: linear-gradient(135deg, #0056d2, #003f9e);
-    transform: scale(1.05);
-}
-
-/* Related Section */
-.related-section {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    margin-top: 15px;
-}
-
-.related-section h3 {
-    margin: 0;
-    font-size: 16px;
-    color: #333;
-}
-
-/* Related Links */
-.related-links {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.related-links li {
-    display: inline-block;
-}
-
-.related-links a {
-    display: inline-block;
-    padding: 8px 16px;
-    background: linear-gradient(135deg, #e74c3c, #c0392b);
-    color: #fff;
-    text-decoration: none;
-    border-radius: 20px;
-    font-size: 14px;
-    transition: 0.3s;
-}
-
-.related-links a:hover {
     transform: scale(1.05);
 }
 
 /* Responsive */
-@media (max-width: 600px) {
-
-    .page-title {
-        font-size: 26px;
-    }
-
-    .update-card {
-        padding: 18px;
-    }
-
-    .related-section {
-        flex-direction: column;
-        align-items: flex-start;
+@media(max-width:700px){
+    .job-grid {
+        grid-template-columns: 1fr;
     }
 }
+
 </style>
 
 
@@ -196,39 +143,56 @@ fetch("/api/jobs")
 .then(data => {
 
 let container = document.getElementById("recentNotifications");
-container.innerHTML="";
+container.innerHTML = "Loading jobs...";
 
 let filtered = data
 .reverse()
 .filter(job => job.category && job.category.toLowerCase().trim() === categoryName.toLowerCase().trim())
-.slice(0,maxCards); // 👈 limit to 30
+.slice(0, maxCards);
+
+container.innerHTML = "";
 
 filtered.forEach(job => {
 
-let card=document.createElement("div");
-card.className="update-card";
+let card = document.createElement("div");
+card.className = "update-card";
 
-card.innerHTML=`
+card.innerHTML = `
 
-<h2>${job.post_name}</h2>
+<div class="job-title">${job.post_name}</div>
 
-<div class="job-details">
+<div class="job-grid">
 
-<strong>Organization:</strong> ${job.organization}<br>
-
-<strong>Vacancy:</strong> ${job.vacancy}<br>
-
-<strong>Qualification:</strong> ${job.qualification}<br>
-
-<strong>Salary:</strong> ${job.salary}<br>
-
-<strong>Content:</strong>
-<div class="job-content">
-${job.content || "No details available"}
+<div class="job-item">
+<strong>Organization</strong>
+<span>${job.organization}</span>
 </div>
 
-<strong>Last Date:</strong> <span class="last-date">${job.last_date}</span>
+<div class="job-item">
+<strong>Vacancy</strong>
+<span>${job.vacancy}</span>
+</div>
 
+<div class="job-item">
+<strong>Qualification</strong>
+<span>${job.qualification}</span>
+</div>
+
+<div class="job-item">
+<strong>Salary</strong>
+<span>${job.salary}</span>
+</div>
+
+<div class="job-item">
+<strong>Last Date</strong>
+<span class="last-date">${job.last_date}</span>
+</div>
+
+</div>
+
+<div class="job-content-box">
+<strong>Job Details:</strong><br>
+${job.content || "No details available"}
 </div>
 
 <button onclick="redirectToUpdate('${job.id}')" class="apply-btn">
@@ -246,13 +210,11 @@ container.appendChild(card);
 }
 
 function redirectToUpdate(id){
-window.location.href="updation.html?id="+id;
+window.location.href = "updation.html?id=" + id;
 }
 
 document.addEventListener("DOMContentLoaded", function(){
-
 loadCategoryJobs("Karnataka");
-
 });
 
 </script>
