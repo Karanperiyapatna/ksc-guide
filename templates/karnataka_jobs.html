@@ -194,10 +194,10 @@
 
 	</div>
 
-	<button onclick="redirectToUpdate('${job.id}')" class="apply-btn">
-	Apply Now
+	<button onclick="window.open('${job.apply_link}','_blank')" class="apply-btn">
+		Apply Now
 	</button>
-	
+
 	`;
 
 	container.appendChild(card);
