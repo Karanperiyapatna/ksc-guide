@@ -6,126 +6,129 @@
 
 
 
-    /* Page */
-    body {
-        font-family: 'Segoe UI', sans-serif;
-        background: #f4f6f9;
-        margin: 0;
-    }
+	/* Page */
+	body {
+		font-family: 'Segoe UI', sans-serif;
+		background: #f4f6f9;
+		margin: 0;
+	}
 
-    /* Title */
-    .page-title {
-        text-align: center;
-        font-size: 32px;
-        margin: 25px 0;
-        color: #2c3e50;
-        font-weight: 700;
-    }
+	/* Title */
+	.page-title {
+		text-align: center;
+		font-size: 32px;
+		margin: 25px 0;
+		color: #2c3e50;
+		font-weight: 700;
+	}
 
-    /* Container */
-    #recentNotifications {
-        max-width: 900px;
-        margin: auto;
-        padding: 10px;
-    }
+	/* Container wider */
+	#recentNotifications {
+		max-width: 1200px;   /* increased width */
+		margin: auto;
+		padding: 20px;
+	}
 
-    /* Card */
-    .update-card {
-        background: #ffffff;
-        border-radius: 10px;
-        padding: 25px;
-        margin-bottom: 25px;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-    }
+	/* Card */
+	.update-card {
+		background: #fff;
+		border-radius: 12px;
+		padding: 30px 40px;   /* more inner spacing */
+		margin-bottom: 25px;
+		box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+	}
 
-    /* Title */
-    .job-title {
-        font-size: 22px;
-        font-weight: 600;
-        color: #2c3e50;
-        margin-bottom: 20px;
-    }
+	/* Title */
+	.job-title {
+		font-size: 24px;
+		font-weight: 600;
+		margin-bottom: 25px;
+		color: #2c3e50;
+	}
 
-    /* Info Row */
-    .info-row {
-        display: flex;
-        justify-content: space-between;
-        padding: 12px 15px;
-        border-bottom: 1px solid #eee;
-        font-size: 15px;
-    }
+	/* Row (KEY FIX) */
+	.info-row {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		padding: 14px 10px;   /* more spacing */
+		border-bottom: 1px solid #eee;
+	}
 
-    .info-row:last-child {
-        border-bottom: none;
-    }
+	/* Label (LEFT) */
+	.info-label {
+		font-weight: 600;
+		color: #2c3e50;
+		min-width: 200px;   /* fixed width for alignment */
+	}
 
-    /* Label */
-    .info-label {
-        font-weight: 600;
-        color: #444;
-    }
+	/* Value (RIGHT) */
+	.info-value {
+		color: #111;
+		text-align: right;
+		flex: 1;
+	}
 
-    /* Value */
-    .info-value {
-        color: #111;
-    }
+	/* Last Date highlight */
+	.last-date {
+		color: #e63946;
+		font-weight: bold;
+	}
 
-    /* Last Date */
-    .last-date {
-        color: #e63946;
-        font-weight: bold;
-    }
+	/* Job Details Section */
+	.job-content-section {
+		margin-top: 30px;
+	}
 
-    /* Content Section (LIKE IMAGE) */
-    .job-content-section {
-        margin-top: 25px;
-    }
+	/* Heading */
+	.job-content-title {
+		font-size: 22px;
+		font-weight: 700;
+		margin-bottom: 15px;
+	}
 
-    .job-content-title {
-        font-size: 22px;
-        font-weight: 700;
-        margin-bottom: 10px;
-        color: #2c3e50;
-    }
+	/* Content */
+	.job-content {
+		font-size: 16px;
+		line-height: 1.9;
+		color: #333;
+	}
 
-    /* FULL CONTENT DISPLAY */
-    .job-content {
-        font-size: 16px;
-        line-height: 1.8;
-        color: #333;
-    }
+	/* Button */
+	.apply-btn {
+		margin-top: 25px;
+		background: #007bff;
+		color: #fff;
+		padding: 12px 22px;
+		border-radius: 6px;
+		border: none;
+		cursor: pointer;
+	}
 
-    /* Button */
-    .apply-btn {
-        margin-top: 20px;
-        background: #007bff;
-        color: white;
-        border: none;
-        padding: 12px 20px;
-        border-radius: 6px;
-        cursor: pointer;
-        font-size: 15px;
-    }
+	.apply-btn:hover {
+		background: #0056d2;
+	}
 
-    .apply-btn:hover {
-        background: #0056d2;
-    }
+	/* Mobile */
+	@media(max-width:700px){
+		.info-row {
+			flex-direction: column;
+			align-items: flex-start;
+			gap: 5px;
+		}
 
-    /* Responsive */
-    @media(max-width:600px){
-        .info-row {
-            flex-direction: column;
-            gap: 5px;
-        }
-    }
-
-
-    </style>
+		.info-value {
+			text-align: left;
+		}
+	}
 
 
-    <h1 class="page-title">Karnataka Government Jobs</h1>
+	</style>
 
-    <div id="recentNotifications"></div>
+
+	<h1 class="page-title">Karnataka Government Jobs</h1>
+
+	<div id="recentNotifications"></div>
 
 
 <script>
@@ -158,8 +161,8 @@ card.innerHTML = `
 <div class="job-title">${job.post_name}</div>
 
 <div class="info-row">
-<div class="info-label">Organization</div>
-<div class="info-value">${job.organization}</div>
+	<div class="info-label">Organization</div>
+	<div class="info-value">${job.organization}</div>
 </div>
 
 <div class="info-row">
