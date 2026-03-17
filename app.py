@@ -147,6 +147,11 @@ def recruitments_page():
 	return render_template('recruitments.html')
 
 
+@app.route('/editorial_page')
+def editorial_page():
+	return render_template('important_editorial.html')
+
+
 @app.route('/testing')
 def testing_page():
 	return render_template('testing.html')
